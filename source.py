@@ -14,10 +14,10 @@ DATASET_PATH = "assets/Images"
 
 # #####################
 
-
+# TODO: Error - Resource execution - optimize training process.
 def main():
     # Load dataset
-    scene_dataset, mnist_dataset = dataset.load_normalized_dataset(DATASET_PATH)
+    scene_dataset = dataset.load_normalized_dataset(DATASET_PATH)
 
     # Create models
     gen_model = model.generator()
@@ -30,7 +30,7 @@ def main():
 
     # Train
     model.train(
-        real_image_dataset=mnist_dataset,
+        real_image_dataset=scene_dataset,
         last_epoch=LAST_EPOCH,
         epochs=EPOCHS,
         gen_model=gen_model,

@@ -9,6 +9,8 @@ from matplotlib import pyplot as plt
 from api import dataset
 
 # Noise size for the input of the Generator model.
+from api.dataset import IMG_SHAPE
+
 GEN_NOISE_INPUT_SHAPE = 100
 
 # Defines interval for saving checkpoints based on epochs.
@@ -20,11 +22,12 @@ def generator():
     Purpose of the Generator model is to images that looks real. During training,
     the Generator progressively becomes better at creating images that look real.
 
-    The Generator model does upsampling to produces images from random noise. It
-    takes random noise as an input, then upsamples several times until reach
-    desired image size (in this case 28x28x1).
+    The Generator model does up-sampling to produces images from random noise. It
+    takes random noise as an input, then up-samples several times until reach
+    desired image size (in this case 224x224x3).
 
-    :return: The Generator model.
+    Returns:
+         The Generator model.
     """
     model = keras.Sequential([
         layers.Dense(units=7 * 7 * 256, use_bias=False, input_shape=(GEN_NOISE_INPUT_SHAPE,)),
@@ -40,7 +43,19 @@ def generator():
         layers.BatchNormalization(),
         layers.LeakyReLU(),
 
-        layers.Conv2DTranspose(filters=1, kernel_size=(5, 5), strides=(2, 2), padding="same", use_bias=False,
+        layers.Conv2DTranspose(filters=32, kernel_size=(5, 5), strides=(2, 2), padding="same", use_bias=False),
+        layers.BatchNormalization(),
+        layers.LeakyReLU(),
+
+        layers.Conv2DTranspose(filters=16, kernel_size=(5, 5), strides=(2, 2), padding="same", use_bias=False),
+        layers.BatchNormalization(),
+        layers.LeakyReLU(),
+
+        layers.Conv2DTranspose(filters=8, kernel_size=(5, 5), strides=(2, 2), padding="same", use_bias=False),
+        layers.BatchNormalization(),
+        layers.LeakyReLU(),
+
+        layers.Conv2DTranspose(filters=3, kernel_size=(5, 5), strides=(2, 2), padding="same", use_bias=False,
                                activation="tanh"),
     ])
 
@@ -54,8 +69,11 @@ def generator_loss(fake_output):
     is performing well, the discriminator will classify the
     fake images as real (or 1).
 
-    :param fake_output: Fake image produced by Generator model.
-    :return: Loss of the Generator.
+    Arguments:
+        fake_output: Fake image produced by Generator model.
+
+    Returns:
+        Loss of the Generator.
     """
     cross_entropy = keras.losses.BinaryCrossentropy(from_logits=True)
 
@@ -67,7 +85,8 @@ def generator_optimizer():
     The Generator model and the Discriminator model uses different
     optimizers because tow different networks are trained.
 
-    :return: Generator optimizer.
+    Returns:
+        Generator optimizer.
     """
     return tf.optimizers.Adam(1e-4)
 
@@ -83,10 +102,12 @@ def discriminator():
     The Discriminator is a simple CNN-based image classifier. It outputs
     positive values for real images, and negative values for fake images.
 
-    :return: The Discriminator model.
+    Returns:
+        The Discriminator model.
     """
     model = keras.Sequential([
-        layers.Conv2D(filters=64, kernel_size=(5, 5), strides=(2, 2), padding='same', input_shape=[28, 28, 1]),
+        layers.Conv2D(filters=64, kernel_size=(5, 5), strides=(2, 2), padding='same',
+                      input_shape=[IMG_SHAPE[0], IMG_SHAPE[1], 1]),
         layers.LeakyReLU(),
         layers.Dropout(rate=0.3),
 
@@ -109,10 +130,12 @@ def discriminator_loss(real_output,
     on real images to an array of 1s, and the discriminator's predictions
     on fake (generated) images to an array of 0s.
 
-    :param real_output: Real image from dataset.
-    :param fake_output: Fake image produced by Generator model.
+    Arguments:
+        real_output: Real image from dataset.
+        fake_output: Fake image produced by Generator model.
 
-    :return: Total loss of the Discriminator.
+    Returns:
+        Total loss of the Discriminator.
     """
     cross_entropy = keras.losses.BinaryCrossentropy(from_logits=True)
 
@@ -128,7 +151,8 @@ def discriminator_optimizer():
     The Generator model and the Discriminator model uses different
     optimizers because tow different networks are trained.
 
-    :return: Discriminator optimizer.
+    Returns:
+        Discriminator optimizer.
     """
     return tf.optimizers.Adam(1e-4)
 
@@ -140,12 +164,14 @@ def define_checkpoint(gen_model,
     """
     Saves and restores (if needed) checkpoints.
 
-    :param gen_model: Generator model.
-    :param gen_optimizer: Generator optimizer.
-    :param dis_model: Discriminator model.
-    :param dis_optimizer: Discriminator optimizer.
+    Arguments:
+        gen_model: Generator model.
+        gen_optimizer: Generator optimizer.
+        dis_model: Discriminator model.
+        dis_optimizer: Discriminator optimizer.
 
-    :return: Checkpoint object, Checkpoint name prefix.
+    Returns:
+        Checkpoint object, Checkpoint name prefix.
     """
     checkpoint_dir = 'res/training_checkpoints'
     checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
@@ -174,16 +200,17 @@ def train(real_image_dataset,
     will look increasingly real. During training process, generated
     images and checkpoints are stored on disk.
 
-    :param real_image_dataset: Dataset that contains real images.
-    :param last_epoch: If checkpoint is used, what was the
-    last proceed epoch.
-    :param epochs: How many epochs should model run.
-    :param gen_model: Generator model.
-    :param gen_optimizer: Generator optimizer.
-    :param dis_model: Discriminator model.
-    :param dis_optimizer: Discriminator optimizer.
-    :param checkpoint: Checkpoint object.
-    :param checkpoint_prefix: Checkpoint name prefix.
+    Arguments:
+        real_image_dataset: Dataset that contains real images.
+        last_epoch: If checkpoint is used, what was the
+        last proceed epoch.
+        epochs: How many epochs should model run.
+        gen_model: Generator model.
+        gen_optimizer: Generator optimizer.
+        dis_model: Discriminator model.
+        dis_optimizer: Discriminator optimizer.
+        checkpoint: Checkpoint object.
+        checkpoint_prefix: Checkpoint name prefix.
     """
     seed = tf.random.normal([16, GEN_NOISE_INPUT_SHAPE])
 
@@ -230,11 +257,12 @@ def train_step(images,
       (ie, that should change each time you call the function based
       on criteria not passed to the function as args/kwargs).
 
-    :param images: Real image batch.
-    :param gen_model: Generator model.
-    :param gen_optimizer: Generator optimizer.
-    :param dis_model: Discriminator model.
-    :param dis_optimizer: Discriminator optimizer.
+    Arguments:
+        images: Real image batch.
+        gen_model: Generator model.
+        gen_optimizer: Generator optimizer.
+        dis_model: Discriminator model.
+        dis_optimizer: Discriminator optimizer.
     """
     noise = tf.random.normal([dataset.BATCH_SIZE, GEN_NOISE_INPUT_SHAPE])
 
@@ -261,9 +289,10 @@ def save_image(gen_model,
     Stores generated image examples during the training
     process.
 
-    :param gen_model: Generator model.
-    :param epoch: Current epoch.
-    :param test_input: Generated image.
+    Arguments:
+        gen_model: Generator model.
+        epoch: Current epoch.
+        test_input: Generated image.
     """
     predictions = gen_model(test_input, training=False)
 
