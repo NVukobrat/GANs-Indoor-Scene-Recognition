@@ -1,16 +1,17 @@
+import datetime
 import os
 import time
 
 import tensorflow as tf
+import numpy as np
 from tensorflow.python import keras
 from tensorflow.python.keras import layers
 from matplotlib import pyplot as plt
 
 from api import dataset
+from api.dataset import IMG_SHAPE, NUM_CHANNEL
 
 # Noise size for the input of the Generator model.
-from api.dataset import IMG_SHAPE
-
 GEN_NOISE_INPUT_SHAPE = 100
 
 # Defines interval for saving checkpoints based on epochs.
@@ -107,7 +108,7 @@ def discriminator():
     """
     model = keras.Sequential([
         layers.Conv2D(filters=64, kernel_size=(5, 5), strides=(2, 2), padding='same',
-                      input_shape=[IMG_SHAPE[0], IMG_SHAPE[1], 1]),
+                      input_shape=[IMG_SHAPE[0], IMG_SHAPE[1], NUM_CHANNEL]),
         layers.LeakyReLU(),
         layers.Dropout(rate=0.3),
 
@@ -212,13 +213,36 @@ def train(real_image_dataset,
         checkpoint: Checkpoint object.
         checkpoint_prefix: Checkpoint name prefix.
     """
+    # Define metrics
+    gen_loss_metric = keras.metrics.Mean('train_loss', dtype=tf.float32)
+    dis_loss_metric = keras.metrics.Mean('train_loss', dtype=tf.float32)
+    # train_accuracy = keras.metrics.BinaryAccuracy('train_accuracy')
+
+    # Metrics save path
+    current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    train_log_dir = 'logs/gradient_tape/' + current_time + '/train'
+    train_summary_writer = tf.summary.create_file_writer(train_log_dir)
+
     seed = tf.random.normal([16, GEN_NOISE_INPUT_SHAPE])
 
     for epoch in range(last_epoch, epochs):
         start = time.time()
 
         for image_batch in real_image_dataset:
-            train_step(image_batch, gen_model, gen_optimizer, dis_model, dis_optimizer)
+            train_step(image_batch,
+                       gen_model,
+                       gen_optimizer,
+                       dis_model,
+                       dis_optimizer,
+                       gen_loss_metric,
+                       dis_loss_metric)
+
+            with train_summary_writer.as_default():
+                tf.summary.scalar('gen_loss', gen_loss_metric.result(), step=epoch)
+                tf.summary.scalar('dis_loss', dis_loss_metric.result(), step=epoch)
+
+        gen_loss_metric.reset_states()
+        dis_loss_metric.reset_states()
 
         save_image(gen_model,
                    epoch + 1,
@@ -239,7 +263,9 @@ def train_step(images,
                gen_model,
                gen_optimizer,
                dis_model,
-               dis_optimizer):
+               dis_optimizer,
+               gen_loss_metric,
+               dis_loss_metric):
     """
     The training loop begins with generator receiving a random seed as input.
     That seed is used to produce an image. The discriminator is then used
@@ -281,6 +307,9 @@ def train_step(images,
     gen_optimizer.apply_gradients(zip(gradients_of_generator, gen_model.trainable_variables))
     dis_optimizer.apply_gradients(zip(gradients_of_discriminator, dis_model.trainable_variables))
 
+    gen_loss_metric(gen_loss)
+    dis_loss_metric(disc_loss)
+
 
 def save_image(gen_model,
                epoch,
@@ -296,12 +325,19 @@ def save_image(gen_model,
     """
     predictions = gen_model(test_input, training=False)
 
-    fig = plt.figure(figsize=(4, 4))
-
     for i in range(predictions.shape[0]):
-        plt.subplot(4, 4, i + 1)
-        plt.imshow(predictions[i, :, :, 0] * 127.5 + 127.5, cmap='gray')
-        plt.axis('off')
+        p = np.array(predictions[i]) * 127.5 + 127.5
+        p = p.astype(np.int, copy=False)
+        plt.imsave('res/image_at_epoch_{:04d}_{:04d}.png'.format(epoch, i), p)
 
-    plt.savefig('res/image_at_epoch_{:04d}.png'.format(epoch))
-    plt.close(fig)
+
+def variable_summaries(var, epoch):
+    with tf.name_scope('summaries'):
+        mean = tf.reduce_mean(var)
+        tf.summary.scalar('mean', mean, step=epoch)
+        with tf.name_scope('stddev'):
+            stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
+        tf.summary.scalar('stddev', stddev, step=epoch)
+        tf.summary.scalar('max', tf.reduce_max(var), step=epoch)
+        tf.summary.scalar('min', tf.reduce_min(var), step=epoch)
+        tf.summary.histogram('histogram', var, step=epoch)

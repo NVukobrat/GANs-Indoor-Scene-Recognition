@@ -5,7 +5,7 @@ from api import model
 LAST_EPOCH = 0
 
 # How many epoch should training last.
-EPOCHS = 1000
+EPOCHS = 100000
 
 # ### CONFIGURATION ###
 
@@ -14,7 +14,8 @@ DATASET_PATH = "assets/Images"
 
 # #####################
 
-# TODO: Error - Resource execution - optimize training process.
+# TODO: Error - Resource execution - optimize training pipeline.
+# TODO: Measure execution time of each process.
 def main():
     # Load dataset
     scene_dataset = dataset.load_normalized_dataset(DATASET_PATH)
