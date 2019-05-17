@@ -29,6 +29,8 @@ def generator():
     Returns:
          The Generator model.
     """
+    start = time.time()
+
     model = keras.Sequential([
         layers.Dense(units=7 * 7 * 256, use_bias=False, input_shape=(GEN_NOISE_INPUT_SHAPE,)),
         layers.BatchNormalization(),
@@ -58,6 +60,9 @@ def generator():
         layers.Conv2DTranspose(filters=3, kernel_size=(5, 5), strides=(2, 2), padding="same", use_bias=False,
                                activation="tanh"),
     ])
+
+    end = time.time()
+    print("Execution time: {:.9f}s (generator)".format(end - start))
 
     return model
 
@@ -105,6 +110,8 @@ def discriminator():
     Returns:
         The Discriminator model.
     """
+    start = time.time()
+
     model = keras.Sequential([
         layers.Conv2D(filters=64, kernel_size=(5, 5), strides=(2, 2), padding='same',
                       input_shape=[IMG_SHAPE[0], IMG_SHAPE[1], NUM_CHANNEL]),
@@ -118,6 +125,9 @@ def discriminator():
         layers.Flatten(),
         layers.Dense(units=1),
     ])
+
+    end = time.time()
+    print("Execution time: {:.9f}s (discriminator)".format(end - start))
 
     return model
 
@@ -173,6 +183,8 @@ def define_checkpoint(gen_model,
     Returns:
         Checkpoint object, Checkpoint name prefix.
     """
+    start = time.time()
+
     checkpoint_dir = 'res/training_checkpoints'
     checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
     checkpoint = tf.train.Checkpoint(generator_optimizer=gen_optimizer,
@@ -180,6 +192,9 @@ def define_checkpoint(gen_model,
                                      generator=gen_model,
                                      discriminator=dis_model)
     checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
+
+    end = time.time()
+    print("Execution time: {:.9f}s (define_checkpoint)".format(end - start))
 
     return checkpoint, checkpoint_prefix
 
@@ -212,6 +227,8 @@ def train(real_image_dataset,
         checkpoint: Checkpoint object.
         checkpoint_prefix: Checkpoint name prefix.
     """
+    start = time.time()
+
     # Define metrics
     gen_loss_metric = keras.metrics.Mean('train_loss', dtype=tf.float32)
     dis_loss_metric = keras.metrics.Mean('train_loss', dtype=tf.float32)
@@ -224,23 +241,32 @@ def train(real_image_dataset,
     seed = tf.random.normal([16, GEN_NOISE_INPUT_SHAPE])
 
     for epoch in range(last_epoch, epochs):
-        start = time.time()
+        start_epoch = time.time()
 
         for image_batch in real_image_dataset:
-            train_step(image_batch,
-                       gen_model,
-                       gen_optimizer,
-                       dis_model,
-                       dis_optimizer,
-                       gen_loss_metric,
-                       dis_loss_metric)
+            start_train = time.time()
+            train_step(
+                image_batch,
+                gen_model,
+                gen_optimizer,
+                dis_model,
+                dis_optimizer,
+                gen_loss_metric,
+                dis_loss_metric
+            )
+            end_train = time.time()
+            print("\tExecution time: {:.9f}s (train_step)".format(end_train - start_train))
 
+            start_test = time.time()
             real_dis_acc, fake_dis_acc, combined_dis_acc = test_step(
                 image_batch,
                 gen_model,
                 dis_model
             )
+            end_test = time.time()
+            print("\tExecution time: {:.9f}s (test_step)".format(end_test - start_test))
 
+            start_metrics = time.time()
             with train_summary_writer.as_default():
                 with tf.name_scope('Loss'):
                     tf.summary.scalar('Generator', gen_loss_metric.result(), step=epoch)
@@ -251,21 +277,29 @@ def train(real_image_dataset,
                     tf.summary.scalar('Fake Discriminator', fake_dis_acc, step=epoch)
                     tf.summary.scalar('Combined Discriminator', combined_dis_acc, step=epoch)
 
-        gen_loss_metric.reset_states()
-        dis_loss_metric.reset_states()
+            gen_loss_metric.reset_states()
+            dis_loss_metric.reset_states()
+            end_metrics = time.time()
+            print("\tExecution time: {:.9f}s (summary/metrics)".format(end_metrics - start_metrics))
 
         save_image(gen_model,
                    epoch + 1,
                    seed)
 
         if (epoch + 1) % CKPT_SAVE_INTERVAL == 0:
+            start_ckpt = time.time()
             checkpoint.save(file_prefix=checkpoint_prefix)
+            end_ckpt = time.time()
+            print("\tExecution time: {:.9f}s (checkpoint.save)".format(end_ckpt - start_ckpt))
 
-        print('Time for epoch {} is {} sec'.format(epoch + 1, time.time() - start))
+        print('Time for epoch {} is {} sec'.format(epoch + 1, time.time() - start_epoch))
 
     save_image(gen_model,
                epochs,
                seed)
+
+    end = time.time()
+    print("Execution time: {:.9f}s (train)".format(end - start))
 
 
 @tf.function
@@ -380,6 +414,8 @@ def save_image(gen_model,
         epoch: Current epoch.
         test_input: Generated image.
     """
+    start = time.time()
+
     predictions = gen_model(test_input, training=False)
 
     for i in range(predictions.shape[0]):
@@ -387,14 +423,5 @@ def save_image(gen_model,
         p = p.astype(np.int, copy=False)
         plt.imsave('res/image_at_epoch_{:04d}_{:04d}.png'.format(epoch, i), p)
 
-
-def variable_summaries(var, epoch):
-    with tf.name_scope('summaries'):
-        mean = tf.reduce_mean(var)
-        tf.summary.scalar('mean', mean, step=epoch)
-        with tf.name_scope('stddev'):
-            stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
-        tf.summary.scalar('stddev', stddev, step=epoch)
-        tf.summary.scalar('max', tf.reduce_max(var), step=epoch)
-        tf.summary.scalar('min', tf.reduce_min(var), step=epoch)
-        tf.summary.histogram('histogram', var, step=epoch)
+    end = time.time()
+    print("\tExecution time: {:.9f}s (save_image)".format(end - start))

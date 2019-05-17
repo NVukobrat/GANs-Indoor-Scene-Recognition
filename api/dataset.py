@@ -1,10 +1,11 @@
 import os
 import random
+import time
 
 import tensorflow as tf
 
 # Training parameters
-BATCH_SIZE = 256
+BATCH_SIZE = 32
 MAX_SAMPLES_PER_CLASS = 3
 
 # Dataset images parameters
@@ -23,6 +24,8 @@ def load_normalized_dataset(path):
     Returns:
         The normalized dataset.
     """
+    start = time.time()
+
     image_samples_path = list()
     for class_dir in os.listdir(path):
         counter = 0
@@ -44,11 +47,12 @@ def load_normalized_dataset(path):
 
     scene_dataset = scene_dataset.map(load_and_preprocess_image)
 
-    scene_dataset = scene_dataset.shuffle(
-        tf.shape(image_samples_path, out_type=tf.int64)[0]
-    ).batch(
+    scene_dataset = scene_dataset.batch(
         BATCH_SIZE
     )
+
+    end = time.time()
+    print("Execution time: {:.9f}s (load_normalized_dataset)".format(end - start))
 
     return scene_dataset
 
