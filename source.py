@@ -4,7 +4,7 @@ from api import model
 # Last epoch during previous training.
 LAST_EPOCH = 0
 
-# How many epoch should training last.
+# How many epochs should train last.
 EPOCHS = 100000
 
 # ### CONFIGURATION ###

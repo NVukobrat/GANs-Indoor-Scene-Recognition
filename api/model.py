@@ -1,15 +1,14 @@
-import datetime
 import os
 import time
 
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
+from matplotlib import pyplot as plt
 from tensorflow.python import keras
 from tensorflow.python.keras import layers
-from matplotlib import pyplot as plt
 
 from api import dataset
-from api.dataset import IMG_SHAPE, NUM_CHANNEL
+from api.dataset import IMG_SHAPE, NUM_CHANNEL, BATCH_SIZE
 
 # Noise size for the input of the Generator model.
 GEN_NOISE_INPUT_SHAPE = 100
@@ -216,13 +215,12 @@ def train(real_image_dataset,
     # Define metrics
     gen_loss_metric = keras.metrics.Mean('train_loss', dtype=tf.float32)
     dis_loss_metric = keras.metrics.Mean('train_loss', dtype=tf.float32)
-    # train_accuracy = keras.metrics.BinaryAccuracy('train_accuracy')
+    dis_accuracy = keras.metrics.BinaryAccuracy('dis_accuracy')
 
-    # Metrics save path
-    current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    train_log_dir = 'logs/gradient_tape/' + current_time + '/train'
+    train_log_dir = 'logs/gradient_tape/' + 'train'
     train_summary_writer = tf.summary.create_file_writer(train_log_dir)
 
+    # Random input for the generator model
     seed = tf.random.normal([16, GEN_NOISE_INPUT_SHAPE])
 
     for epoch in range(last_epoch, epochs):
@@ -237,9 +235,21 @@ def train(real_image_dataset,
                        gen_loss_metric,
                        dis_loss_metric)
 
+            real_dis_acc, fake_dis_acc, combined_dis_acc = test_step(
+                image_batch,
+                gen_model,
+                dis_model
+            )
+
             with train_summary_writer.as_default():
-                tf.summary.scalar('gen_loss', gen_loss_metric.result(), step=epoch)
-                tf.summary.scalar('dis_loss', dis_loss_metric.result(), step=epoch)
+                with tf.name_scope('Loss'):
+                    tf.summary.scalar('Generator', gen_loss_metric.result(), step=epoch)
+                    tf.summary.scalar('Discriminator', dis_loss_metric.result(), step=epoch)
+
+                with tf.name_scope('Accuracy'):
+                    tf.summary.scalar('Real Discriminator', real_dis_acc, step=epoch)
+                    tf.summary.scalar('Fake Discriminator', fake_dis_acc, step=epoch)
+                    tf.summary.scalar('Combined Discriminator', combined_dis_acc, step=epoch)
 
         gen_loss_metric.reset_states()
         dis_loss_metric.reset_states()
@@ -309,6 +319,53 @@ def train_step(images,
 
     gen_loss_metric(gen_loss)
     dis_loss_metric(disc_loss)
+
+
+def test_step(real_images,
+              gen_model,
+              dis_model):
+    """
+    Arguments:
+        real_images:
+        gen_model:
+        dis_model:
+
+   Returns:
+
+    """
+    # Generate fake images
+    random_seed = tf.random.normal([BATCH_SIZE, GEN_NOISE_INPUT_SHAPE])
+    fake_images = gen_model(random_seed, training=False)
+
+    # Give predictions
+    real_dis_predic = dis_model(real_images)
+    fake_dis_predic = dis_model(fake_images)
+
+    # Real accuracy
+    correct = 0
+    wrong = 0
+    for conf in real_dis_predic:
+        if conf >= 0.0:
+            correct += 1
+        else:
+            wrong += 1
+
+    real_dis_acc = float(correct) / float(correct + wrong)
+
+    # Fake accuracy
+    correct = 0
+    wrong = 0
+    for conf in fake_dis_predic:
+        if conf < 0.0:
+            correct += 1
+        else:
+            wrong += 1
+
+    fake_dis_acc = float(correct) / float(correct + wrong)
+
+    combined_dis_acc = (real_dis_acc + fake_dis_acc) / 2
+
+    return real_dis_acc, fake_dis_acc, combined_dis_acc
 
 
 def save_image(gen_model,
