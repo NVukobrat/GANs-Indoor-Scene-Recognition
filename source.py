@@ -10,12 +10,13 @@ EPOCHS = 100000
 # ### CONFIGURATION ###
 
 DATASET_PATH = "assets/Images"
+LOG_LEVEL = 1
 
 
 # #####################
 
 # TODO: Error - Resource execution - optimize training pipeline.
-# TODO: Measure execution time of each process.
+# TODO: For some reason, training process is much slower than it used to be. Check the reason.
 def main():
     # Load dataset
     scene_dataset = dataset.load_normalized_dataset(DATASET_PATH)
