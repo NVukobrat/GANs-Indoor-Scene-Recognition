@@ -12,17 +12,7 @@ Number of epochs: 10.000
 Training duration: 1h 45m 9s
 ```
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <style>
-        table {
-            width: 100%
-        }
-    </style>
-</head>
-<body>
-<table>
+<table style="width: 100%;">
     <tr>
         <th>Original Image</th>
     </tr>
@@ -30,8 +20,7 @@ Training duration: 1h 45m 9s
         <td><img src="assets/images/single_class_single_image/joyeria_rometsch03.jpg" alt="" ></td>
     </tr>
 </table>
-</body>
-</html>
+
 
 ### TODO:
 - Repeat single class with 1 image to get proper loss results.
