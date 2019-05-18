@@ -8,16 +8,17 @@ from tensorflow.python import keras
 from tensorflow.python.keras import layers
 
 from api import dataset
-from api.dataset import IMG_SHAPE, NUM_CHANNEL, BATCH_SIZE
-
-# Noise size for the input of the Generator model.
+from api.dataset import IMG_SHAPE, N_CHANNELS, BATCH_SIZE
 from source import DEBUG_LOG
 
+# Noise size for the input of the Generator model.
 GEN_NOISE_INPUT_SHAPE = 100
 
-# Defines interval for saving checkpoints based on epochs.
-GEN_SAMPLE_SAVE_INTERVAL = 10
+# Defines an interval for saving checkpoints based on epochs.
 CKPT_SAVE_INTERVAL = 15
+
+# Defines an interval for saving generator image samples based on epochs.
+GEN_SAMPLE_SAVE_INTERVAL = 10
 
 
 def generator():
@@ -118,7 +119,7 @@ def discriminator():
 
     model = keras.Sequential([
         layers.Conv2D(filters=64, kernel_size=(5, 5), strides=(2, 2), padding='same',
-                      input_shape=[IMG_SHAPE[0], IMG_SHAPE[1], NUM_CHANNEL]),
+                      input_shape=[IMG_SHAPE[0], IMG_SHAPE[1], N_CHANNELS]),
         layers.LeakyReLU(),
         layers.Dropout(rate=0.3),
 
@@ -219,7 +220,7 @@ def train(real_image_dataset,
     beginning of the training, the generated images look like
     random noise. As training progresses, the generated digits
     will look increasingly real. During training process, generated
-    images and checkpoints are stored on disk.
+    images and checkpoints have stored on disk.
 
     Arguments:
         real_image_dataset: Dataset that contains real images.
@@ -232,14 +233,16 @@ def train(real_image_dataset,
         dis_optimizer: Discriminator optimizer.
         checkpoint: Checkpoint object.
         checkpoint_prefix: Checkpoint name prefix.
+
     """
     # global real_dis_acc, fake_dis_acc, combined_dis_acc
     start = time.time()
 
-    # Define metrics
+    # Define TensorBoard metrics
     gen_loss_metric = keras.metrics.Mean('train_loss', dtype=tf.float32)
     dis_loss_metric = keras.metrics.Mean('train_loss', dtype=tf.float32)
 
+    # Define TensorBoard metrics save path
     train_log_dir = 'logs/gradient_tape/' + 'train'
     train_summary_writer = tf.summary.create_file_writer(train_log_dir)
 
@@ -250,6 +253,7 @@ def train(real_image_dataset,
         start_epoch = time.time()
 
         for image_batch in real_image_dataset:
+            # Train step
             start_train = time.time()
             train_step(
                 image_batch,
@@ -264,6 +268,7 @@ def train(real_image_dataset,
             if DEBUG_LOG:
                 print("\tExecution time: {:.9f}s (train_step)".format(end_train - start_train))
 
+            # # Test step
             # start_test = time.time()
             # real_dis_acc, fake_dis_acc, combined_dis_acc = test_step(
             #     image_batch,
@@ -272,9 +277,9 @@ def train(real_image_dataset,
             # )
             # end_test = time.time()
             # if DEBUG_LOG:
-                # print("\tExecution time: {:.9f}s (test_step)".format(end_test - start_test))
+            # print("\tExecution time: {:.9f}s (test_step)".format(end_test - start_test))
 
-            # Metrics
+            # Record TensorBoard metrics
             start_metrics = time.time()
             with train_summary_writer.as_default():
                 with tf.name_scope('Loss'):
@@ -292,11 +297,13 @@ def train(real_image_dataset,
             if DEBUG_LOG:
                 print("\tExecution time: {:.9f}s (summary/metrics)".format(end_metrics - start_metrics))
 
+        # Save generator sample image
         if (epoch + 1) % GEN_SAMPLE_SAVE_INTERVAL == 0:
             save_image(gen_model,
                        epoch + 1,
                        seed)
 
+        # Save model checkpoint
         if (epoch + 1) % CKPT_SAVE_INTERVAL == 0:
             start_ckpt = time.time()
             checkpoint.save(file_prefix=checkpoint_prefix)
@@ -305,10 +312,6 @@ def train(real_image_dataset,
                 print("\tExecution time: {:.9f}s (checkpoint.save)".format(end_ckpt - start_ckpt))
 
         print('Time for epoch {} is {} sec'.format(epoch + 1, time.time() - start_epoch))
-
-    save_image(gen_model,
-               epochs,
-               seed)
 
     end = time.time()
     if DEBUG_LOG:
@@ -346,6 +349,8 @@ def train_step(images,
         gen_optimizer: Generator optimizer.
         dis_model: Discriminator model.
         dis_optimizer: Discriminator optimizer.
+        dis_loss_metric: TensorBoards discriminator loss metrics.
+        gen_loss_metric: TensorBoards generator loss metrics.
     """
     noise = tf.random.normal([dataset.BATCH_SIZE, GEN_NOISE_INPUT_SHAPE])
 
@@ -372,26 +377,30 @@ def test_step(real_images,
               gen_model,
               dis_model):
     """
+    Calculates Discriminator accuracy on real and
+    fake (generated) images.
+
     Arguments:
-        real_images:
-        gen_model:
-        dis_model:
+        real_images: Images from the real dataset.
+        gen_model: A generator model.
+        dis_model: A discriminator model.
 
    Returns:
-
+       Discriminator accuracy on the fake and real images
+       as well as combined accuracy of them.
     """
     # Generate fake images
     random_seed = tf.random.normal([BATCH_SIZE, GEN_NOISE_INPUT_SHAPE])
     fake_images = gen_model(random_seed, training=False)
 
     # Give predictions
-    real_dis_predic = dis_model(real_images)
-    fake_dis_predic = dis_model(fake_images)
+    real_dis_prediction = dis_model(real_images)
+    fake_dis_prediction = dis_model(fake_images)
 
-    # Real accuracy
+    # Actual accuracy
     correct = 0
     wrong = 0
-    for conf in real_dis_predic:
+    for conf in real_dis_prediction:
         if conf >= 0.0:
             correct += 1
         else:
@@ -402,7 +411,7 @@ def test_step(real_images,
     # Fake accuracy
     correct = 0
     wrong = 0
-    for conf in fake_dis_predic:
+    for conf in fake_dis_prediction:
         if conf < 0.0:
             correct += 1
         else:
@@ -410,6 +419,7 @@ def test_step(real_images,
 
     fake_dis_acc = float(correct) / float(correct + wrong)
 
+    # Combined accuracy
     combined_dis_acc = (real_dis_acc + fake_dis_acc) / 2
 
     return real_dis_acc, fake_dis_acc, combined_dis_acc
@@ -424,8 +434,8 @@ def save_image(gen_model,
 
     Arguments:
         gen_model: Generator model.
-        epoch: Current epoch.
-        test_input: Generated image.
+        epoch: A Current epoch.
+        test_input: A Generated image.
     """
     start = time.time()
 

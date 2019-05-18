@@ -4,27 +4,39 @@ import time
 
 import tensorflow as tf
 
-# Training parameters
 from source import DEBUG_LOG
 
+# How many samples should be used from each class.
+MAX_SAMPLES_PER_CLASS = 100
+
+# Dataset batch size
 BATCH_SIZE = 256
-MAX_SAMPLES_PER_CLASS = 100  # 100 is optimal because of memory issues.
 
-# Dataset images parameters
+# Shape of the dataset and generator output images.
 IMG_SHAPE = (224, 224)
-NUM_CHANNEL = 3
+
+# Number of channels of the dataset and generator output images.
+N_CHANNELS = 3
 
 
+# TODO: Try to make this function compatible with tf.function.
 def load_normalized_dataset(path):
     """
-    Loads dataset,  normalizes it to [-1, +1] values,
-    and shuffles.
+    Loads dataset in form of Dataset object used for batch
+    training.
+
+    When requested paths have been collected, images located
+    on the paths are read into the tensors and transformed
+    to the Dataset object used for batch training.
+
+    The dataset path should be in the form:
+    dataset_root/class_name/image_name.
 
     Arguments:
-        path: The relative path to the dataset.
+        path: A relative path to the dataset root.
 
     Returns:
-        The normalized dataset.
+        A normalized dataset.
     """
     start = time.time()
 
@@ -62,17 +74,36 @@ def load_normalized_dataset(path):
 
 @tf.function
 def load_and_preprocess_image(path):
+    """
+    Reads image from the path and returns preprocessed image.
+
+    Arguments:
+        path: Path to the image.
+
+    Returns:
+        Preprocessed image.
+    """
     image = tf.io.read_file(path)
     return preprocess_image(image)
 
 
 @tf.function
 def preprocess_image(image):
+    """
+        Preprocess the given image. It decodes JPEG/PNG image and
+        normalizes it to the [-1, 1] range.
+
+        Arguments:
+            image: A tensor of file content.
+
+        Returns:
+            Decoded and normalized image.
+        """
     image = tf.cond(
         tf.image.is_jpeg(image),
-        lambda: tf.image.decode_jpeg(image, channels=NUM_CHANNEL),
-        lambda: tf.image.decode_png(image, channels=NUM_CHANNEL))
+        lambda: tf.image.decode_jpeg(image, channels=N_CHANNELS),
+        lambda: tf.image.decode_png(image, channels=N_CHANNELS))
     image = tf.image.resize(image, IMG_SHAPE)
-    image = (image - 127.5) / 127.5  # [-1, 1] TODO: Also try [0, 1]
+    image = (image - 127.5) / 127.5  # [-1, 1]
 
     return image

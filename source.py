@@ -1,19 +1,19 @@
 from api import dataset
 from api import model
 
-# Last epoch during previous training.
-LAST_EPOCH = 2756
+# Root path to the dataset
+DATASET_PATH = "assets/Images"
+
+# Last epoch during previous training (in case training
+# has continued from the checkpoint).
+LAST_EPOCH = 0
 
 # How many epochs should train last.
 EPOCHS = 100000
 
-# ### CONFIGURATION ###
+# Write debug messages.
+DEBUG_LOG = True
 
-DATASET_PATH = "assets/Images"
-DEBUG_LOG = False
-
-
-# #####################
 
 # TODO: Error - Resource execution - optimize training pipeline.
 def main():
@@ -26,10 +26,10 @@ def main():
     dis_model = model.discriminator()
     dis_optimizer = model.discriminator_optimizer()
 
-    # Model checkpoint
+    # Define model checkpoint
     checkpoint, checkpoint_prefix = model.define_checkpoint(gen_model, gen_optimizer, dis_model, dis_optimizer)
 
-    # Train
+    # Initialize training pipeline.
     model.train(
         real_image_dataset=scene_dataset,
         last_epoch=LAST_EPOCH,
