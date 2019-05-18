@@ -50,6 +50,10 @@ def load_normalized_dataset(path):
 
     random.shuffle(image_samples_path)
 
+    with open('image_list.txt', 'w') as f:
+        for item in image_samples_path:
+            f.write("%s\n" % item)
+
     scene_dataset = tf.data.Dataset.from_tensor_slices(
         image_samples_path
     )

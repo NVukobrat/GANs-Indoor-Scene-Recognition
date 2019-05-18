@@ -435,7 +435,7 @@ def save_image(gen_model,
     for i in range(predictions.shape[0]):
         p = np.array(predictions[i]) * 127.5 + 127.5
         p = p.astype(np.int, copy=False)
-        plt.imsave('res/image_at_epoch_{:04d}_{:04d}.png'.format(epoch, i), p)
+        plt.imsave('res/image_at_epoch_{:05d}_{:05d}.png'.format(epoch, i), p)
 
     end = time.time()
     if DEBUG_LOG:
