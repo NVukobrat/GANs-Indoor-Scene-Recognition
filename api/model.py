@@ -11,8 +11,6 @@ from api import dataset
 from api.dataset import IMG_SHAPE, NUM_CHANNEL, BATCH_SIZE
 
 # Noise size for the input of the Generator model.
-from source import LOG_LEVEL
-
 GEN_NOISE_INPUT_SHAPE = 100
 
 # Defines interval for saving checkpoints based on epochs.
@@ -230,7 +228,7 @@ def train(real_image_dataset,
         checkpoint: Checkpoint object.
         checkpoint_prefix: Checkpoint name prefix.
     """
-    global real_dis_acc, fake_dis_acc, combined_dis_acc
+    # global real_dis_acc, fake_dis_acc, combined_dis_acc
     start = time.time()
 
     # Define metrics
@@ -260,27 +258,26 @@ def train(real_image_dataset,
             end_train = time.time()
             print("\tExecution time: {:.9f}s (train_step)".format(end_train - start_train))
 
-            if LOG_LEVEL > 1:
-                start_test = time.time()
-                real_dis_acc, fake_dis_acc, combined_dis_acc = test_step(
-                    image_batch,
-                    gen_model,
-                    dis_model
-                )
-                end_test = time.time()
-                print("\tExecution time: {:.9f}s (test_step)".format(end_test - start_test))
+            # start_test = time.time()
+            # real_dis_acc, fake_dis_acc, combined_dis_acc = test_step(
+            #     image_batch,
+            #     gen_model,
+            #     dis_model
+            # )
+            # end_test = time.time()
+            # print("\tExecution time: {:.9f}s (test_step)".format(end_test - start_test))
 
+            # Metrics
             start_metrics = time.time()
             with train_summary_writer.as_default():
                 with tf.name_scope('Loss'):
                     tf.summary.scalar('Generator', gen_loss_metric.result(), step=epoch)
                     tf.summary.scalar('Discriminator', dis_loss_metric.result(), step=epoch)
 
-                if LOG_LEVEL > 1:
-                    with tf.name_scope('Accuracy'):
-                        tf.summary.scalar('Real Discriminator', real_dis_acc, step=epoch)
-                        tf.summary.scalar('Fake Discriminator', fake_dis_acc, step=epoch)
-                        tf.summary.scalar('Combined Discriminator', combined_dis_acc, step=epoch)
+                # with tf.name_scope('Accuracy'):
+                #     tf.summary.scalar('Real Discriminator', real_dis_acc, step=epoch)
+                #     tf.summary.scalar('Fake Discriminator', fake_dis_acc, step=epoch)
+                #     tf.summary.scalar('Combined Discriminator', combined_dis_acc, step=epoch)
 
             gen_loss_metric.reset_states()
             dis_loss_metric.reset_states()
@@ -340,7 +337,6 @@ def train_step(images,
         dis_model: Discriminator model.
         dis_optimizer: Discriminator optimizer.
     """
-    start_gradient_tape = time.time()
     noise = tf.random.normal([dataset.BATCH_SIZE, GEN_NOISE_INPUT_SHAPE])
 
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
@@ -354,26 +350,12 @@ def train_step(images,
 
     gradients_of_generator = gen_tape.gradient(gen_loss, gen_model.trainable_variables)
     gradients_of_discriminator = disc_tape.gradient(disc_loss, dis_model.trainable_variables)
-    end_gradien_tape = time.time()
 
-    if LOG_LEVEL > 1:
-        print("\t\tExecution time: {:.9f}s (gradient_tape)".format(end_gradien_tape - start_gradient_tape))
-
-    start_apply_gradients = time.time()
     gen_optimizer.apply_gradients(zip(gradients_of_generator, gen_model.trainable_variables))
     dis_optimizer.apply_gradients(zip(gradients_of_discriminator, dis_model.trainable_variables))
-    end_apply_gradients = time.time()
 
-    if LOG_LEVEL > 1:
-        print("\t\tExecution time: {:.9f}s (apply_gradients)".format(end_apply_gradients - start_apply_gradients))
-
-    start_loss_metric = time.time()
     gen_loss_metric(gen_loss)
     dis_loss_metric(disc_loss)
-    end_loss_metric = time.time()
-
-    if LOG_LEVEL > 1:
-        print("\t\tExecution time: {:.9f}s (loss_metric)".format(end_loss_metric - start_loss_metric))
 
 
 def test_step(real_images,

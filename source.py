@@ -2,7 +2,7 @@ from api import dataset
 from api import model
 
 # Last epoch during previous training.
-LAST_EPOCH = 0
+LAST_EPOCH = 2739
 
 # How many epochs should train last.
 EPOCHS = 100000
@@ -10,13 +10,11 @@ EPOCHS = 100000
 # ### CONFIGURATION ###
 
 DATASET_PATH = "assets/Images"
-LOG_LEVEL = 1
 
 
 # #####################
 
 # TODO: Error - Resource execution - optimize training pipeline.
-# TODO: For some reason, training process is much slower than it used to be. Check the reason.
 def main():
     # Load dataset
     scene_dataset = dataset.load_normalized_dataset(DATASET_PATH)

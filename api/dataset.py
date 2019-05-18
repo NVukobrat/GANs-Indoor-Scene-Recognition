@@ -6,7 +6,7 @@ import tensorflow as tf
 
 # Training parameters
 BATCH_SIZE = 256
-MAX_SAMPLES_PER_CLASS = -1
+MAX_SAMPLES_PER_CLASS = 100 # 100 is optimal because of memory issues.
 
 # Dataset images parameters
 IMG_SHAPE = (224, 224)
