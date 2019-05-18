@@ -11,11 +11,8 @@ LAST_EPOCH = 0
 # How many epochs should train last.
 EPOCHS = 100000
 
-# Write debug messages.
-DEBUG_LOG = True
 
-
-# TODO: Error - Resource execution - optimize training pipeline.
+# TODO: Error — Resource exhausted — optimize training pipeline.
 def main():
     # Load dataset
     scene_dataset = dataset.load_normalized_dataset(DATASET_PATH)

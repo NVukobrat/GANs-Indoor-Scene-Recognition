@@ -4,19 +4,7 @@ import time
 
 import tensorflow as tf
 
-from source import DEBUG_LOG
-
-# How many samples should be used from each class.
-MAX_SAMPLES_PER_CLASS = 100
-
-# Dataset batch size
-BATCH_SIZE = 256
-
-# Shape of the dataset and generator output images.
-IMG_SHAPE = (224, 224)
-
-# Number of channels of the dataset and generator output images.
-N_CHANNELS = 3
+from api.configuration import DEBUG_LOG, MAX_SAMPLES_PER_CLASS, MAX_CLASSES, BATCH_SIZE, N_CHANNELS, IMG_SHAPE
 
 
 # TODO: Try to make this function compatible with tf.function.
@@ -41,17 +29,24 @@ def load_normalized_dataset(path):
     start = time.time()
 
     image_samples_path = list()
+    class_count = 1
     for class_dir in os.listdir(path):
-        counter = 0
+        img_sample_count = 1
         full_class_dir = os.path.join(path, class_dir)
         for image_name in os.listdir(full_class_dir):
-            counter += 1
 
             full_image_name = os.path.join(full_class_dir, image_name)
             image_samples_path.append(full_image_name)
 
-            if counter == MAX_SAMPLES_PER_CLASS:
+            if img_sample_count == MAX_SAMPLES_PER_CLASS:
                 break
+
+            img_sample_count += 1
+
+        if class_count == MAX_CLASSES:
+            break
+
+        class_count += 1
 
     random.shuffle(image_samples_path)
 
@@ -90,14 +85,14 @@ def load_and_preprocess_image(path):
 @tf.function
 def preprocess_image(image):
     """
-        Preprocess the given image. It decodes JPEG/PNG image and
-        normalizes it to the [-1, 1] range.
+    Preprocess the given image. It decodes JPEG/PNG image and
+    normalizes it to the [-1, 1] range.
 
-        Arguments:
-            image: A tensor of file content.
+    Arguments:
+        image: A tensor of file content.
 
-        Returns:
-            Decoded and normalized image.
+    Returns:
+        Decoded and normalized image.
         """
     image = tf.cond(
         tf.image.is_jpeg(image),

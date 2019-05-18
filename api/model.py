@@ -8,17 +8,8 @@ from tensorflow.python import keras
 from tensorflow.python.keras import layers
 
 from api import dataset
-from api.dataset import IMG_SHAPE, N_CHANNELS, BATCH_SIZE
-from source import DEBUG_LOG
-
-# Noise size for the input of the Generator model.
-GEN_NOISE_INPUT_SHAPE = 100
-
-# Defines an interval for saving checkpoints based on epochs.
-CKPT_SAVE_INTERVAL = 15
-
-# Defines an interval for saving generator image samples based on epochs.
-GEN_SAMPLE_SAVE_INTERVAL = 10
+from api.configuration import GEN_NOISE_INPUT_SHAPE, DEBUG_LOG, N_CHANNELS, IMG_SHAPE, GEN_SAMPLE_SAVE_INTERVAL, \
+    CKPT_SAVE_INTERVAL, BATCH_SIZE
 
 
 def generator():
