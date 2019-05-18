@@ -5,8 +5,10 @@ import time
 import tensorflow as tf
 
 # Training parameters
+from source import DEBUG_LOG
+
 BATCH_SIZE = 256
-MAX_SAMPLES_PER_CLASS = 100 # 100 is optimal because of memory issues.
+MAX_SAMPLES_PER_CLASS = 100  # 100 is optimal because of memory issues.
 
 # Dataset images parameters
 IMG_SHAPE = (224, 224)
@@ -52,16 +54,19 @@ def load_normalized_dataset(path):
     )
 
     end = time.time()
-    print("Execution time: {:.9f}s (load_normalized_dataset)".format(end - start))
+    if DEBUG_LOG:
+        print("Execution time: {:.9f}s (load_normalized_dataset)".format(end - start))
 
     return scene_dataset
 
 
+@tf.function
 def load_and_preprocess_image(path):
     image = tf.io.read_file(path)
     return preprocess_image(image)
 
 
+@tf.function
 def preprocess_image(image):
     image = tf.cond(
         tf.image.is_jpeg(image),

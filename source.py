@@ -2,7 +2,7 @@ from api import dataset
 from api import model
 
 # Last epoch during previous training.
-LAST_EPOCH = 2739
+LAST_EPOCH = 2756
 
 # How many epochs should train last.
 EPOCHS = 100000
@@ -10,6 +10,7 @@ EPOCHS = 100000
 # ### CONFIGURATION ###
 
 DATASET_PATH = "assets/Images"
+DEBUG_LOG = False
 
 
 # #####################

@@ -11,6 +11,8 @@ from api import dataset
 from api.dataset import IMG_SHAPE, NUM_CHANNEL, BATCH_SIZE
 
 # Noise size for the input of the Generator model.
+from source import DEBUG_LOG
+
 GEN_NOISE_INPUT_SHAPE = 100
 
 # Defines interval for saving checkpoints based on epochs.
@@ -63,7 +65,8 @@ def generator():
     ])
 
     end = time.time()
-    print("Execution time: {:.9f}s (generator)".format(end - start))
+    if DEBUG_LOG:
+        print("Execution time: {:.9f}s (generator)".format(end - start))
 
     return model
 
@@ -128,7 +131,8 @@ def discriminator():
     ])
 
     end = time.time()
-    print("Execution time: {:.9f}s (discriminator)".format(end - start))
+    if DEBUG_LOG:
+        print("Execution time: {:.9f}s (discriminator)".format(end - start))
 
     return model
 
@@ -195,7 +199,8 @@ def define_checkpoint(gen_model,
     checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
     end = time.time()
-    print("Execution time: {:.9f}s (define_checkpoint)".format(end - start))
+    if DEBUG_LOG:
+        print("Execution time: {:.9f}s (define_checkpoint)".format(end - start))
 
     return checkpoint, checkpoint_prefix
 
@@ -256,7 +261,8 @@ def train(real_image_dataset,
                 dis_loss_metric
             )
             end_train = time.time()
-            print("\tExecution time: {:.9f}s (train_step)".format(end_train - start_train))
+            if DEBUG_LOG:
+                print("\tExecution time: {:.9f}s (train_step)".format(end_train - start_train))
 
             # start_test = time.time()
             # real_dis_acc, fake_dis_acc, combined_dis_acc = test_step(
@@ -265,7 +271,8 @@ def train(real_image_dataset,
             #     dis_model
             # )
             # end_test = time.time()
-            # print("\tExecution time: {:.9f}s (test_step)".format(end_test - start_test))
+            # if DEBUG_LOG:
+                # print("\tExecution time: {:.9f}s (test_step)".format(end_test - start_test))
 
             # Metrics
             start_metrics = time.time()
@@ -282,7 +289,8 @@ def train(real_image_dataset,
             gen_loss_metric.reset_states()
             dis_loss_metric.reset_states()
             end_metrics = time.time()
-            print("\tExecution time: {:.9f}s (summary/metrics)".format(end_metrics - start_metrics))
+            if DEBUG_LOG:
+                print("\tExecution time: {:.9f}s (summary/metrics)".format(end_metrics - start_metrics))
 
         if (epoch + 1) % GEN_SAMPLE_SAVE_INTERVAL == 0:
             save_image(gen_model,
@@ -293,7 +301,8 @@ def train(real_image_dataset,
             start_ckpt = time.time()
             checkpoint.save(file_prefix=checkpoint_prefix)
             end_ckpt = time.time()
-            print("\tExecution time: {:.9f}s (checkpoint.save)".format(end_ckpt - start_ckpt))
+            if DEBUG_LOG:
+                print("\tExecution time: {:.9f}s (checkpoint.save)".format(end_ckpt - start_ckpt))
 
         print('Time for epoch {} is {} sec'.format(epoch + 1, time.time() - start_epoch))
 
@@ -302,7 +311,8 @@ def train(real_image_dataset,
                seed)
 
     end = time.time()
-    print("Execution time: {:.9f}s (train)".format(end - start))
+    if DEBUG_LOG:
+        print("Execution time: {:.9f}s (train)".format(end - start))
 
 
 @tf.function
@@ -427,4 +437,5 @@ def save_image(gen_model,
         plt.imsave('res/image_at_epoch_{:04d}_{:04d}.png'.format(epoch, i), p)
 
     end = time.time()
-    print("\tExecution time: {:.9f}s (save_image)".format(end - start))
+    if DEBUG_LOG:
+        print("\tExecution time: {:.9f}s (save_image)".format(end - start))
