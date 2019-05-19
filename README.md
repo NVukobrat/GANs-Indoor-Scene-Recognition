@@ -81,7 +81,7 @@ Training duration: 1h 45m 9s
 Explanation ...
 
 ```bash
-Number of epochs: 10.000
+Number of epochs: 50.000
 Training duration: 
 ```
 
@@ -166,9 +166,96 @@ Training duration:
 </table>
 </center>
 
+## Single class with ten images
+Explanation ...
+
+```bash
+Number of epochs: 50.000
+Training duration: 11h 1m 16s
+```
+
+### An Original images
+<center>
+<table>
+    <tr>
+        <td><img src="assets/images/single_class_ten_images/joyeria_rometsch03.jpg" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/joyeria_01g.jpg" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/tienda01.jpg" alt=""></td>
+    </tr>
+</table>
+</center>
+
+### Examples through epochs
+<center>
+<table>
+    <tr>
+        <td>Epoch 10</td>
+        <td>Epoch 300</td>
+        <td>Epoch 500</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_00010_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_00300_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_00500_00000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 700</td>
+        <td>Epoch 900</td>
+        <td>Epoch 2000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_00700_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_00900_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_02000_00000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 5.000</td>
+        <td>Epoch 10.000</td>
+        <td>Epoch 15.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_05000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_10000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_15000_00000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 21.000</td>
+        <td>Epoch 26.000</td>
+        <td>Epoch 40.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_21000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_26000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_40000_00000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 46.000</td>
+        <td>Epoch 48.000</td>
+        <td>Epoch 50.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_46000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_48000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_50000_00000.png" alt=""></td>
+    </tr>
+</table>
+</center>
+
+### Model loss
+<center>
+<table>
+    <tr>
+        <td>Generator Loss</td>
+        <td>Discriminator Loss</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_ten_images/loss_examples/generator_loss.png" alt=""></td>
+        <td><img src="assets/images/single_class_ten_images/loss_examples/discriminator_loss.png" alt=""></td>
+    </tr>
+</table>
+</center>
+
 # TODO:
-- Repeat single class with 1 image to get proper loss results.
-- Try single class with 10 images.
 - Try single class with 100 images.
 - Try full single class.
 - Try 3 classes with 1 image.

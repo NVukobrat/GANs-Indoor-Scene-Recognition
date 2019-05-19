@@ -12,7 +12,7 @@ N_CHANNELS = 3
 BATCH_SIZE = 256
 
 # Debug logging
-DEBUG_LOG = True
+DEBUG_LOG = False
 
 ###################################
 # ### Dataset related constants ###
@@ -22,7 +22,7 @@ DEBUG_LOG = True
 MAX_CLASSES = 1
 
 # How many samples should be used from each class.
-MAX_SAMPLES_PER_CLASS = 1
+MAX_SAMPLES_PER_CLASS = 100
 
 #################################
 # ### Model related constants ###
