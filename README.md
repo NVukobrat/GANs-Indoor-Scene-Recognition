@@ -105,9 +105,9 @@ Training duration:
         <td>Epoch 500</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_00010_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_00300_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_00500_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_00010_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_00300_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_00500_00000.png" alt=""></td>
     </tr>
     <tr>
         <td>Epoch 700</td>
@@ -115,9 +115,9 @@ Training duration:
         <td>Epoch 2000</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_00700_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_00900_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_02000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_00700_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_00900_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_02000_00000.png" alt=""></td>
     </tr>
     <tr>
         <td>Epoch 5.000</td>
@@ -125,9 +125,9 @@ Training duration:
         <td>Epoch 15.000</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_05000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_10000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_15000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_05000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_10000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_15000_00000.png" alt=""></td>
     </tr>
     <tr>
         <td>Epoch 21.000</td>
@@ -135,9 +135,9 @@ Training duration:
         <td>Epoch 40.000</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_21000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_26000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_40000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_21000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_26000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_40000_00000.png" alt=""></td>
     </tr>
     <tr>
         <td>Epoch 46.000</td>
@@ -145,9 +145,9 @@ Training duration:
         <td>Epoch 50.000</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_46000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_48000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_50000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_46000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_48000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_50000_00000.png" alt=""></td>
     </tr>
 </table>
 </center>
@@ -176,6 +176,7 @@ Training duration:
 - Try full 3 classes.
 - Try full dataset with 100 samples per class.
 - Try full dataset.
+- Rescale images for better documentation preview.
 
 ### Notes
 - [Cool list of available datasets](https://github.com/awesomedata/awesome-public-datasets)
