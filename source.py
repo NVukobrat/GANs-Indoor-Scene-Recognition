@@ -6,7 +6,7 @@ DATASET_PATH = "assets/Images"
 
 # Last epoch during previous training (in case training
 # has continued from the checkpoint).
-LAST_EPOCH = 10510
+LAST_EPOCH = 29930
 
 # How many epochs should train last.
 EPOCHS = 50000

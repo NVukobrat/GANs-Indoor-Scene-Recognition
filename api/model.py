@@ -305,8 +305,7 @@ def train(real_image_dataset,
         print('Time for epoch {} is {} sec'.format(epoch + 1, time.time() - start_epoch))
 
     end = time.time()
-    if DEBUG_LOG:
-        print("Execution time: {:.9f}s (train)".format(end - start))
+    print("Execution time: {:.9f}s (train)".format(end - start))
 
 
 @tf.function
