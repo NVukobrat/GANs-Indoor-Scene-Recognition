@@ -22,7 +22,7 @@ DEBUG_LOG = False
 MAX_CLASSES = 1
 
 # How many samples should be used from each class.
-MAX_SAMPLES_PER_CLASS = 100
+MAX_SAMPLES_PER_CLASS = -1
 
 #################################
 # ### Model related constants ###

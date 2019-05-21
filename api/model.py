@@ -259,16 +259,16 @@ def train(real_image_dataset,
             if DEBUG_LOG:
                 print("\tExecution time: {:.9f}s (train_step)".format(end_train - start_train))
 
-            # # Test step
-            # start_test = time.time()
-            # real_dis_acc, fake_dis_acc, combined_dis_acc = test_step(
-            #     image_batch,
-            #     gen_model,
-            #     dis_model
-            # )
-            # end_test = time.time()
-            # if DEBUG_LOG:
-            # print("\tExecution time: {:.9f}s (test_step)".format(end_test - start_test))
+            # Test step
+            start_test = time.time()
+            real_dis_acc, fake_dis_acc, combined_dis_acc = test_step(
+                image_batch,
+                gen_model,
+                dis_model
+            )
+            end_test = time.time()
+            if DEBUG_LOG:
+                print("\tExecution time: {:.9f}s (test_step)".format(end_test - start_test))
 
             # Record TensorBoard metrics
             start_metrics = time.time()
@@ -277,10 +277,10 @@ def train(real_image_dataset,
                     tf.summary.scalar('Generator', gen_loss_metric.result(), step=epoch)
                     tf.summary.scalar('Discriminator', dis_loss_metric.result(), step=epoch)
 
-                # with tf.name_scope('Accuracy'):
-                #     tf.summary.scalar('Real Discriminator', real_dis_acc, step=epoch)
-                #     tf.summary.scalar('Fake Discriminator', fake_dis_acc, step=epoch)
-                #     tf.summary.scalar('Combined Discriminator', combined_dis_acc, step=epoch)
+                with tf.name_scope('Accuracy'):
+                    tf.summary.scalar('Real Discriminator', real_dis_acc, step=epoch)
+                    tf.summary.scalar('Fake Discriminator', fake_dis_acc, step=epoch)
+                    tf.summary.scalar('Combined Discriminator', combined_dis_acc, step=epoch)
 
             gen_loss_metric.reset_states()
             dis_loss_metric.reset_states()
@@ -363,6 +363,7 @@ def train_step(images,
     dis_loss_metric(disc_loss)
 
 
+@tf.function
 def test_step(real_images,
               gen_model,
               dis_model):
@@ -375,41 +376,41 @@ def test_step(real_images,
         gen_model: A generator model.
         dis_model: A discriminator model.
 
-   Returns:
+    Returns:
        Discriminator accuracy on the fake and real images
        as well as combined accuracy of them.
     """
+
     # Generate fake images
+    start = time.time()
     random_seed = tf.random.normal([BATCH_SIZE, GEN_NOISE_INPUT_SHAPE])
+    print("\t\tExecution time: {:.9f}s (Generate random seed)".format(time.time() - start))
+
+    start = time.time()
     fake_images = gen_model(random_seed, training=False)
+    print("\t\tExecution time: {:.9f}s (Generate fake images)".format(time.time() - start))
 
     # Give predictions
+    start = time.time()
     real_dis_prediction = dis_model(real_images)
     fake_dis_prediction = dis_model(fake_images)
+    print("\t\tExecution time: {:.9f}s (Discriminator prediction)".format(time.time() - start))
 
     # Actual accuracy
-    correct = 0
-    wrong = 0
-    for conf in real_dis_prediction:
-        if conf >= 0.0:
-            correct += 1
-        else:
-            wrong += 1
-
+    start = time.time()
+    correct = len(real_dis_prediction[real_dis_prediction >= 0.0])
+    wrong = len(real_dis_prediction[real_dis_prediction < 0.0])
     real_dis_acc = float(correct) / float(correct + wrong)
+    print("\t\tExecution time: {:.9f}s (Actual accuracy)".format(time.time() - start))
 
     # Fake accuracy
-    correct = 0
-    wrong = 0
-    for conf in fake_dis_prediction:
-        if conf < 0.0:
-            correct += 1
-        else:
-            wrong += 1
-
+    start = time.time()
+    correct = len(fake_dis_prediction[fake_dis_prediction < 0.0])
+    wrong = len(fake_dis_prediction[fake_dis_prediction >= 0.0])
     fake_dis_acc = float(correct) / float(correct + wrong)
+    print("\t\tExecution time: {:.9f}s (Fake accuracy)".format(time.time() - start))
 
-    # Combined accuracy
+    # # Combined accuracy
     combined_dis_acc = (real_dis_acc + fake_dis_acc) / 2
 
     return real_dis_acc, fake_dis_acc, combined_dis_acc
