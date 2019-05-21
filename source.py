@@ -1,6 +1,5 @@
 from api import dataset
 from api import model
-
 from api.configuration import DATASET_PATH, LAST_EPOCH, EPOCHS
 
 
