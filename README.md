@@ -4,10 +4,10 @@ Apply Generative Adversarial Network (GAN) to generate indoor scene images.
 This model could be used to generate new indoor scene images and by that extend an available dataset of indoor scenes. Newly generated images should improve accuracy of indoor scene classifier model.
 
 ## OS and Hardware
-- OS: Ubuntu 19.04
-- Processor: Intel® Core™ i7-4770 CPU @ 3.40GHz × 8
-- Graphics: GeForce GTX 1080 Ti/PCIe/SSE2
-- Memory: 16GB
+- **OS:** Ubuntu 19.04
+- **Processor:** Intel® Core™ i7-4770 CPU @ 3.40GHz × 8
+- **Graphics:** GeForce GTX 1080 Ti/PCIe/SSE2
+- **Memory:** 16GB
 
 # Cases
 ## Single class with single image

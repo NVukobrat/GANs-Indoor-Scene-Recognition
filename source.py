@@ -6,10 +6,10 @@ DATASET_PATH = "dataset"
 
 # Last epoch during previous training (in case training
 # has continued from the checkpoint).
-LAST_EPOCH = 0
+LAST_EPOCH = 22200
 
 # How many epochs should train last.
-EPOCHS = 1
+EPOCHS = 50000
 
 
 # TODO: Error — Resource exhausted — optimize training pipeline.

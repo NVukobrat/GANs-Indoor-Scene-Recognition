@@ -32,7 +32,7 @@ MAX_SAMPLES_PER_CLASS = -1
 GEN_NOISE_INPUT_SHAPE = 100
 
 # Defines an interval for saving checkpoints based on epochs.
-CKPT_SAVE_INTERVAL = 15
+CKPT_SAVE_INTERVAL = 100
 
 # Defines an interval for saving generator image samples based on epochs.
-GEN_SAMPLE_SAVE_INTERVAL = 10
+GEN_SAMPLE_SAVE_INTERVAL = 100

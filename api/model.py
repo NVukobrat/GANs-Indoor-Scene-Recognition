@@ -382,33 +382,23 @@ def test_step(real_images,
     """
 
     # Generate fake images
-    start = time.time()
     random_seed = tf.random.normal([BATCH_SIZE, GEN_NOISE_INPUT_SHAPE])
-    print("\t\tExecution time: {:.9f}s (Generate random seed)".format(time.time() - start))
 
-    start = time.time()
     fake_images = gen_model(random_seed, training=False)
-    print("\t\tExecution time: {:.9f}s (Generate fake images)".format(time.time() - start))
 
     # Give predictions
-    start = time.time()
     real_dis_prediction = dis_model(real_images)
     fake_dis_prediction = dis_model(fake_images)
-    print("\t\tExecution time: {:.9f}s (Discriminator prediction)".format(time.time() - start))
 
     # Actual accuracy
-    start = time.time()
     correct = len(real_dis_prediction[real_dis_prediction >= 0.0])
     wrong = len(real_dis_prediction[real_dis_prediction < 0.0])
     real_dis_acc = float(correct) / float(correct + wrong)
-    print("\t\tExecution time: {:.9f}s (Actual accuracy)".format(time.time() - start))
 
     # Fake accuracy
-    start = time.time()
     correct = len(fake_dis_prediction[fake_dis_prediction < 0.0])
     wrong = len(fake_dis_prediction[fake_dis_prediction >= 0.0])
     fake_dis_acc = float(correct) / float(correct + wrong)
-    print("\t\tExecution time: {:.9f}s (Fake accuracy)".format(time.time() - start))
 
     # # Combined accuracy
     combined_dis_acc = (real_dis_acc + fake_dis_acc) / 2
