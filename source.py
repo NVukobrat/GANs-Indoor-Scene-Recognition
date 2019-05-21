@@ -1,15 +1,7 @@
 from api import dataset
 from api import model
 
-# Root path to the dataset
-DATASET_PATH = "dataset"
-
-# Last epoch during previous training (in case training
-# has continued from the checkpoint).
-LAST_EPOCH = 22200
-
-# How many epochs should train last.
-EPOCHS = 50000
+from api.configuration import DATASET_PATH, LAST_EPOCH, EPOCHS
 
 
 # TODO: Error — Resource exhausted — optimize training pipeline.

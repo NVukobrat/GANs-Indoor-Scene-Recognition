@@ -8,8 +8,8 @@ from tensorflow.python import keras
 from tensorflow.python.keras import layers
 
 from api import dataset
-from api.configuration import GEN_NOISE_INPUT_SHAPE, DEBUG_LOG, N_CHANNELS, IMG_SHAPE, GEN_SAMPLE_SAVE_INTERVAL, \
-    CKPT_SAVE_INTERVAL, BATCH_SIZE
+from api.configuration import GEN_NOISE_INPUT_SHAPE, DEBUG_LOG, N_CHANNELS, IMG_SHAPE, LC_GEN_SAMPLE_SAVE_INTERVAL, \
+    CKPT_SAVE_INTERVAL, BATCH_SIZE, TB_GEN_SAMPLE_SAVE_INTERVAL
 
 
 def generator():
@@ -229,7 +229,7 @@ def train(real_image_dataset,
     # global real_dis_acc, fake_dis_acc, combined_dis_acc
     start = time.time()
 
-    # Define TensorBoard metrics
+    # Define TensorBoard loss metrics
     gen_loss_metric = keras.metrics.Mean('train_loss', dtype=tf.float32)
     dis_loss_metric = keras.metrics.Mean('train_loss', dtype=tf.float32)
 
@@ -270,7 +270,7 @@ def train(real_image_dataset,
             if DEBUG_LOG:
                 print("\tExecution time: {:.9f}s (test_step)".format(end_test - start_test))
 
-            # Record TensorBoard metrics
+            # Record TensorBoard scalar metrics
             start_metrics = time.time()
             with train_summary_writer.as_default():
                 with tf.name_scope('Loss'):
@@ -289,10 +289,10 @@ def train(real_image_dataset,
                 print("\tExecution time: {:.9f}s (summary/metrics)".format(end_metrics - start_metrics))
 
         # Save generator sample image
-        if (epoch + 1) % GEN_SAMPLE_SAVE_INTERVAL == 0:
-            save_image(gen_model,
-                       epoch + 1,
-                       seed)
+        save_image(gen_model,
+                   epoch + 1,
+                   seed,
+                   train_summary_writer)
 
         # Save model checkpoint
         if (epoch + 1) % CKPT_SAVE_INTERVAL == 0:
@@ -380,7 +380,6 @@ def test_step(real_images,
        Discriminator accuracy on the fake and real images
        as well as combined accuracy of them.
     """
-
     # Generate fake images
     random_seed = tf.random.normal([BATCH_SIZE, GEN_NOISE_INPUT_SHAPE])
 
@@ -408,7 +407,8 @@ def test_step(real_images,
 
 def save_image(gen_model,
                epoch,
-               test_input):
+               test_input,
+               train_summary_writer):
     """
     Stores generated image examples during the training
     process.
@@ -419,13 +419,24 @@ def save_image(gen_model,
         test_input: A Generated image.
     """
     start = time.time()
-
     predictions = gen_model(test_input, training=False)
 
-    for i in range(predictions.shape[0]):
-        p = np.array(predictions[i]) * 127.5 + 127.5
-        p = p.astype(np.int, copy=False)
-        plt.imsave('res/image_at_epoch_{:05d}_{:05d}.png'.format(epoch, i), p)
+    # Record image to local storage.
+    if (epoch + 1) % LC_GEN_SAMPLE_SAVE_INTERVAL == 0:
+        for i in range(predictions.shape[0]):
+            img = np.array(predictions[i]) * 127.5 + 127.5
+            img = img.astype(np.int, copy=False)
+            plt.imsave('res/image_at_epoch_{:05d}_{:05d}.png'.format(epoch, i), img)
+
+    # Record TensorBoard image metrics
+    if (epoch + 1) % TB_GEN_SAMPLE_SAVE_INTERVAL == 0:
+        with train_summary_writer.as_default():
+            for i in range(predictions.shape[0]):
+                img = np.array(predictions[i]) * 127.5 + 127.5
+                img = img.astype(np.int, copy=False)
+                plt.imsave('res/image_at_epoch_{:05d}_{:05d}.png'.format(epoch, i), img)
+                img = np.reshape(img, (1, IMG_SHAPE[0], IMG_SHAPE[1], N_CHANNELS)).astype(np.int)
+                tf.summary.image('image_{:03d}.png'.format(i), img, step=epoch)
 
     end = time.time()
     if DEBUG_LOG:
