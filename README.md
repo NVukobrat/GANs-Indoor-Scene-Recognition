@@ -11,6 +11,7 @@ This model could be used to generate new indoor scene images and by that extend 
 
 ## Notes
 - Some examples don't have Accuracy metrics. The reason is later development and optimizations of these metrics for proper usage. If there is enough time, it will be added in the future.
+- For larger data examples, more resources (or better optimizations) are needed. This is planned will be applied in future development or future projects.
 
 # Cases
 ## Single class with single image
@@ -441,13 +442,6 @@ Could be seen at "assets/images/single_class_all_images/image_list.txt".
     </tr>
 </table>
 </center>
-
-
-# TODO:
-- Try 9 class 3 images with accuracy metrics.
-- Try full 10 classes.
-- Try full dataset with 100 samples per class.
-- Try full dataset.
 
 ### Notes
 - [Cool list of available datasets](https://github.com/awesomedata/awesome-public-datasets)

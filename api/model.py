@@ -422,21 +422,19 @@ def save_image(gen_model,
     predictions = gen_model(test_input, training=False)
 
     # Record image to local storage.
-    if (epoch + 1) % LC_GEN_SAMPLE_SAVE_INTERVAL == 0:
+    if epoch % LC_GEN_SAMPLE_SAVE_INTERVAL == 0:
         for i in range(predictions.shape[0]):
             img = np.array(predictions[i]) * 127.5 + 127.5
             img = img.astype(np.int, copy=False)
             plt.imsave('res/image_at_epoch_{:05d}_{:05d}.png'.format(epoch, i), img)
 
     # Record TensorBoard image metrics
-    if (epoch + 1) % TB_GEN_SAMPLE_SAVE_INTERVAL == 0:
-        with train_summary_writer.as_default():
-            for i in range(predictions.shape[0]):
-                img = np.array(predictions[i]) * 127.5 + 127.5
-                img = img.astype(np.int, copy=False)
-                plt.imsave('res/image_at_epoch_{:05d}_{:05d}.png'.format(epoch, i), img)
-                img = np.reshape(img, (1, IMG_SHAPE[0], IMG_SHAPE[1], N_CHANNELS)).astype(np.int)
-                tf.summary.image('image_{:03d}.png'.format(i), img, step=epoch)
+    if epoch % TB_GEN_SAMPLE_SAVE_INTERVAL == 0:
+        with tf.name_scope("Samples"):
+            with train_summary_writer.as_default():
+                for i in range(predictions.shape[0]):
+                    img = np.reshape(predictions[i], (1, IMG_SHAPE[0], IMG_SHAPE[1], N_CHANNELS))
+                    tf.summary.image('image_{:03d}.png'.format(i), img, step=epoch)
 
     end = time.time()
     if DEBUG_LOG:
