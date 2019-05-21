@@ -22,14 +22,6 @@ Training duration: 1h 45m 9s
 ```
 
 ### An Original image
-<style>
-
-table {
-    width: 100%
-}
-
-</style>
-
 <center>
 <table>
     <tr>
@@ -420,8 +412,8 @@ Could be seen at "assets/images/single_class_all_images/image_list.txt".
         <td>Discriminator Loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_all_images/loss_examples/Loss_Generator.svg" alt=""></td>
-        <td><img src="assets/images/single_class_all_images/loss_examples/Loss_Discriminator.svg" alt=""></td>
+        <td><img src="assets/images/single_class_all_images/loss_examples/Loss_Generator.png" alt=""></td>
+        <td><img src="assets/images/single_class_all_images/loss_examples/Loss_Discriminator.png" alt=""></td>
     </tr>
 </table>
 </center>
@@ -433,19 +425,19 @@ Could be seen at "assets/images/single_class_all_images/image_list.txt".
         <td>Discriminator on real images</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_all_images/loss_examples/Accuracy_Real Discriminator.svg" alt=""></td>
+        <td><img src="assets/images/single_class_all_images/loss_examples/Accuracy_Real Discriminator.png" alt=""></td>
     </tr>
     <tr>
         <td>Discriminator on fake images</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_all_images/loss_examples/Accuracy_Fake Discriminator.svg" alt=""></td>
+        <td><img src="assets/images/single_class_all_images/loss_examples/Accuracy_Fake Discriminator.png" alt=""></td>
     </tr>
     <tr>
         <td>Discriminator combined mean loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_all_images/loss_examples/Accuracy_Combined Discriminator.svg" alt=""></td>
+        <td><img src="assets/images/single_class_all_images/loss_examples/Accuracy_Combined Discriminator.png" alt=""></td>
     </tr>
 </table>
 </center>
