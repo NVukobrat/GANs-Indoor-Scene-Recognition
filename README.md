@@ -22,6 +22,14 @@ Training duration: 1h 45m 9s
 ```
 
 ### An Original image
+<style>
+
+table {
+    width: 100%
+}
+
+</style>
+
 <center>
 <table>
     <tr>
