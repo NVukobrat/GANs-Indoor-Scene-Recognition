@@ -9,14 +9,14 @@ IMG_SHAPE = (224, 224)
 N_CHANNELS = 3
 
 # Dataset batch size
-BATCH_SIZE = 256
+BATCH_SIZE = 128
 
 # Last epoch during previous training (in case training
 # has continued from the checkpoint).
-LAST_EPOCH = 0
+LAST_EPOCH = 4600
 
 # How many epochs should train last.
-EPOCHS = 50000
+EPOCHS = 100000
 
 # Debug logging
 DEBUG_LOG = False
@@ -29,10 +29,10 @@ DEBUG_LOG = False
 DATASET_PATH = "dataset"
 
 # How many classes will be used for training.
-MAX_CLASSES = 1
+MAX_CLASSES = -1
 
 # How many samples should be used from each class.
-MAX_SAMPLES_PER_CLASS = -1
+MAX_SAMPLES_PER_CLASS = 10
 
 #################################
 # ### Model related constants ###
