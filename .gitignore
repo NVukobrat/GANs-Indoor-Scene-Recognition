@@ -1,6 +1,7 @@
 .idea/
 __pycache__/
-assets/Annotations
-assets/Images
+
 res/
 logs/
+dataset/
+image_list.txt
