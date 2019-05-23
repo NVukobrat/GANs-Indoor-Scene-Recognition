@@ -3,7 +3,7 @@ Producing indoor scene images using Generative Adversarial Networks (GANs).
 
 This model has intended to expand a currently available dataset of indoor scene images. Because of hardware and time limitations, this is not fully achieved. However, in the moment of overcoming these constraints, the same code could be used in order to get better outcomes.
 
-Bellow are specified OS and Hardware elements used during this project R&D with additional notes to answer FAQ. Besides this, most of the documentation consists of cases in which models were trained. Those cases consist of conclusions, image lists used during training, generator samples on arbitrarily chosen epochs, and models accuracy during epochs. These cases are intended to give more intuition on how GANs tries to solve the given problem.
+Bellow are specified OS and Hardware elements used during this project R&D, explanation of the used dataset and additional notes to answer FAQ. Besides this, most of the documentation consists of cases in which models were trained. Those cases consist of conclusions, image lists used during training, generator samples on arbitrarily chosen epochs, and models loss and accuracy during epochs. These cases are intended to give more intuition on how GANs tries to solve the given problem.
 
 ## OS and Hardware 
 - **OS:** Ubuntu 19.04
@@ -181,6 +181,8 @@ Examples show that the generator model over-fit during the training process, but
 Training models on the single class with ten images. In this, and rest of the bellow cases when more images are introduced, models aren't likely to over-fit, but, they struggle to find a pattern between given image samples. 
 
 The explanation is simple, it's very hard for the generator model to find a way to produce real looking images by comparing many image samples. In order to accomplish this, the generator must find a pattern between indoor scene images and how to interpolate them to look real. This is especially hard for a given dataset because it contains a large number of details for each image sample, that is unique to it.
+
+As a result, models trained on a larger number of images tend to generate more abstract artistic images than real looking ones.
 
 This model is trained on **50.000** epoch. Training last **11h 1m 16s**.
 
