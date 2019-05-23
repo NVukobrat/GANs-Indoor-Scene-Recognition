@@ -1,26 +1,27 @@
 # Summary
-Apply Generative Adversarial Network (GAN) to generate indoor scene images. 
+Producing indoor scene images using Generative Adversarial Networks (GANs).
 
-This model could be used to generate new indoor scene images and by that extend an available dataset of indoor scenes. Newly generated images should improve accuracy of indoor scene classifier model.
+This model has intended to expand a currently available dataset of indoor scene images. 
 
-## OS and Hardware
+## OS and Hardware 
 - **OS:** Ubuntu 19.04
-- **Processor:** Intel® Core™ i7-4770 CPU @ 3.40GHz × 8
+- **Processor:** Intel Core i7-4770 CPU @ 3.40GHz × 8
 - **Graphics:** GeForce GTX 1080 Ti/PCIe/SSE2
-- **Memory:** 16GB
+- **Memory:** Kingston HyperX Fury Red 16 GB (2 x 8 GB)
 
 ## Notes
-- Some examples don't have Accuracy metrics. The reason is later development and optimizations of these metrics for proper usage. If there is enough time, it will be added in the future.
-- For larger data examples, more resources (or better optimizations) are needed. This is planned will be applied in future development or future projects.
+- Some examples don't have Accuracy metrics. The reason is later development and optimizations of these metrics for adequate usage. If there is enough time, they will be added in the future.
+- Training with a greater amount of samples from the dataset isn't possible with current hardware. The source code could be optimized, but it will still take too much time to train the model on all training samples until it converge.
 
 # Cases
 ## Single class with single image
-Training process of the Generator model is apply to the single class containing single image generator results converge to recognizable images really fast. This results in high over-fit. In case of Generator model, for any input noise tensor, output will be the same image used in the training process.
+In this case, the training process involves just a single image from a single class. While having a single sample from the whole dataset has great performance (in training time needed to converge in order to get optimal results), it tends to over-fit the generator model. From the perspective of the generator model, this means that it will produce the same image no matter the given input to the mode (this image will be almost the same as the image from training process).
 
-```bash
-Number of epochs: 10.000
-Training duration: 1h 45m 9s
-```
+This model is trained on **10.000** epoch. Training last **1h 45m 09s**.
+
+Bellow is the original image used for training of the models as well as generator image samples throughout the epochs.
+
+Examples show that the generator model over-fit fast and continued to do it throughout the epochs.
 
 ### An Original image
 <center>
