@@ -1,7 +1,9 @@
 # Summary
 Producing indoor scene images using Generative Adversarial Networks (GANs).
 
-This model has intended to expand a currently available dataset of indoor scene images. 
+This model has intended to expand a currently available dataset of indoor scene images. Because of hardware and time limitations, this is not fully achieved. However, in the moment of overcoming these constraints, the same code could be used in order to get better outcomes.
+
+Bellow are specified OS and Hardware elements used during this project R&D with additional notes to answer FAQ. Besides this, most of the documentation consists of cases in which models were trained. Those cases consist of conclusions, image lists used during training, generator samples on arbitrarily chosen epochs, and models accuracy during epochs. These cases are intended to give more intuition on how GANs tries to solve the given problem.
 
 ## OS and Hardware 
 - **OS:** Ubuntu 19.04
@@ -13,6 +15,9 @@ This model has intended to expand a currently available dataset of indoor scene 
 - For most of the cases, training last till 50.000 epoch. The only reason is the time needed in order to reach results. If there is enough time, future models will be trained on more epochs. By that, generator models will produce better results. 
 - Some examples don't have Accuracy metrics. The reason is later development and optimizations of these metrics for adequate usage. If there is enough time, they will be added in the future.
 - Training with a greater amount of samples from the dataset isn't possible with current hardware. The source code could be optimized, but it will still take too much time to train the model on all training samples until it converge.
+
+## Dataset
+The [dataset](http://groups.csail.mit.edu/vision/LabelMe/NewImages/indoorCVPR_09.tar) contains 67 Indoor categories, and a total of 15620 images. The number of images varies across categories, but there are at least 100 images per category. All images are in jpg format. The images provided here are for research purposes only.
 
 # Cases
 ## Single class with single image
@@ -181,7 +186,7 @@ This model is trained on **50.000** epoch. Training last **11h 1m 16s**.
 
 ### An Original images
 Could be fount at:   
-assets/images/single_class_ten_images/image_list.txt
+> assets/images/single_class_ten_images/image_list.txt
 
 ### Examples through epochs
 <table>
@@ -260,7 +265,7 @@ This model is trained on **50.000** epoch. Training last **16h 41m 44s**.
 
 ### An Original images
 Could be fount at:   
-assets/images/single_class_hundred_images/image_list.txt
+> assets/images/single_class_hundred_images/image_list.txt
 
 ### Examples through epochs
 <table>
@@ -339,7 +344,7 @@ This model is trained on **50.000** epoch. Training last **17h 17m 50s**.
 
 ### An Original images
 Could be fount at:   
-assets/images/single_class_all_images/image_list.txt
+> assets/images/single_class_all_images/image_list.txt
 
 ### Examples through epochs
 <table>
@@ -440,7 +445,7 @@ This model is trained on **50.000** epoch. Training last **TODO**.
 
 ### An Original images
 Could be fount at:   
-assets/images/all_classes_ten_images/image_list.txt
+> assets/images/all_classes_ten_images/image_list.txt
 
 ### Examples through epochs
 <table>
@@ -502,13 +507,13 @@ assets/images/all_classes_ten_images/image_list.txt
         <td>Generator Loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_all_images/loss_examples/Loss_Generator.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Loss_Generator.png" alt=""></td>
     </tr>
     <tr>
     	<td>Discriminator Loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_all_images/loss_examples/Loss_Discriminator.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Loss_Discriminator.png" alt=""></td>
     </tr>
 </table>
 
