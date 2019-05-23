@@ -22,10 +22,9 @@ This model is trained on **10.000** epoch. Training last **1h 45m 09s**.
 
 Bellow is the original image used for training of the models as well as generator image samples throughout the epochs.
 
-Examples show that the generator model over-fit during the training process, but nevertheless, it also tries to generate a distinct image having other two image samples as a reference.
+Examples show that the generator model over-fit fast and continued to do it throughout the epochs.
 
 ### An Original image
-<center>
 <table>
     <tr>
         <td>Original Image</td>
@@ -34,10 +33,8 @@ Examples show that the generator model over-fit during the training process, but
         <td><img src="assets/images/single_class_single_image/joyeria_rometsch03.jpg" alt=""></td>
     </tr>
 </table>
-</center>
 
 ### Examples through epochs
-<center>
 <table>
     <tr>
         <td>Epoch 10</td>
@@ -70,10 +67,8 @@ Examples show that the generator model over-fit during the training process, but
         <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_10000_0000.png" alt=""></td>
     </tr>
 </table>
-</center>
 
-### Model loss
-<center>
+### Loss
 <table>
     <tr>
         <td>Generator Loss</td>
@@ -88,7 +83,6 @@ Examples show that the generator model over-fit during the training process, but
 		<td><img src="assets/images/single_class_single_image/loss_examples/Screenshot%20from%202019-05-18%2014-44-16.png" alt=""></td>
     </tr>
 </table>
-</center>
 
 ## Single class with three images
 In this case, the training process involves three images from a single class. Same as in the previous case, this model tends to over-fit. But there is a difference. Because of the randomness of the input seed matrix and more than one image samples during the training process, this model tries to pick an indoor scene pattern and construct a new unique image. 
@@ -97,19 +91,18 @@ Bellow are three original images used for training of the models as well as gene
 
 This model is trained on **50.000** epoch. Training last **7h 29m 11s**.
 
+Examples show that the generator model over-fit during the training process, but nevertheless, it also tries to generate a distinct image having other two image samples as a reference.
+
 ### An Original images
-<center>
 <table>
     <tr>
-        <td><img src="assets/images/single_class_three_images/joyeria_rometsch03.jpg" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/joyeria_01g.jpg" alt=""></td>
-        <td><img src="assets/images/single_class_three_images/tienda01.jpg" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/joyeria_rometsch03.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/joyeria_01g.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/tienda01.png" alt=""></td>
     </tr>
 </table>
-</center>
 
 ### Examples through epochs
-<center>
 <table>
     <tr>
         <td>Epoch 10</td>
@@ -162,35 +155,35 @@ This model is trained on **50.000** epoch. Training last **7h 29m 11s**.
         <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_50000_00000.png" alt=""></td>
     </tr>
 </table>
-</center>
 
-### Model loss
-<center>
+### Loss
 <table>
     <tr>
         <td>Generator Loss</td>
-        <td>Discriminator Loss</td>
     </tr>
     <tr>
         <td><img src="assets/images/single_class_three_images/loss_examples/generator_loss.png" alt=""></td>
+    </tr>
+    <tr>
+    	<td>Discriminator Loss</td>
+    </tr>
+    <tr>
         <td><img src="assets/images/single_class_three_images/loss_examples/discriminator_loss.png" alt=""></td>
     </tr>
 </table>
-</center>
 
 ## Single class with ten images
-Explanation ...
+Training models on the single class with ten images. In this, and rest of the bellow cases when more images are introduced, models aren't likely to over-fit, but, they struggle to find a pattern between given image samples. 
 
-```bash
-Number of epochs: 50.000
-Training duration: 11h 1m 16s
-```
+The explanation is simple, it's very hard for the generator model to find a way to produce real looking images by comparing many image samples. In order to accomplish this, the generator must find a pattern between indoor scene images and how to interpolate them to look real. This is especially hard for a given dataset because it contains a large number of details for each image sample, that is unique to it.
+
+This model is trained on **50.000** epoch. Training last **11h 1m 16s**.
 
 ### An Original images
-Could be seen at "assets/images/single_class_ten_images/image_list.txt".
+Could be fount at:   
+assets/images/single_class_ten_images/image_list.txt
 
 ### Examples through epochs
-<center>
 <table>
     <tr>
         <td>Epoch 10</td>
@@ -243,35 +236,33 @@ Could be seen at "assets/images/single_class_ten_images/image_list.txt".
         <td><img src="assets/images/single_class_ten_images/epoch_examples/image_at_epoch_50000_00000.png" alt=""></td>
     </tr>
 </table>
-</center>
 
-### Model loss
-<center>
+### Loss
 <table>
     <tr>
         <td>Generator Loss</td>
-        <td>Discriminator Loss</td>
     </tr>
     <tr>
         <td><img src="assets/images/single_class_ten_images/loss_examples/generator_loss.png" alt=""></td>
+    </tr>
+    <tr>
+    	<td>Discriminator Loss</td>
+    </tr>
+    <tr>
         <td><img src="assets/images/single_class_ten_images/loss_examples/discriminator_loss.png" alt=""></td>
     </tr>
 </table>
-</center>
 
-## Single class with hundred images
-Explanation ...
+## Single class with a hundred images
+Training models on the single class with a hundred images.
 
-```bash
-Number of epochs: 50.000
-Training duration: 16h 41m 44s
-```
+This model is trained on **50.000** epoch. Training last **16h 41m 44s**.
 
 ### An Original images
-Could be seen at "assets/images/single_class_hundred_images/image_list.txt".
+Could be fount at:   
+assets/images/single_class_hundred_images/image_list.txt
 
 ### Examples through epochs
-<center>
 <table>
     <tr>
         <td>Epoch 10</td>
@@ -324,35 +315,33 @@ Could be seen at "assets/images/single_class_hundred_images/image_list.txt".
         <td><img src="assets/images/single_class_hundred_images/epoch_examples/image_at_epoch_50000_00000.png" alt=""></td>
     </tr>
 </table>
-</center>
 
-### Model loss
-<center>
+### Loss
 <table>
     <tr>
         <td>Generator Loss</td>
-        <td>Discriminator Loss</td>
     </tr>
     <tr>
         <td><img src="assets/images/single_class_hundred_images/loss_examples/generator_loss.png" alt=""></td>
+    </tr>
+    <tr>
+    	<td>Discriminator Loss</td>
+    </tr>
+    <tr>
         <td><img src="assets/images/single_class_hundred_images/loss_examples/discriminator_loss.png" alt=""></td>
     </tr>
 </table>
-</center>
 
 ## Single class with all images
-Explanation ...
+Training models on the single class with all (157) images.
 
-```bash
-Number of epochs: 50.000
-Training duration: 17h 17m 50s
-```
+This model is trained on **50.000** epoch. Training last **17h 17m 50s**.
 
 ### An Original images
-Could be seen at "assets/images/single_class_all_images/image_list.txt".
+Could be fount at:   
+assets/images/single_class_all_images/image_list.txt
 
 ### Examples through epochs
-<center>
 <table>
     <tr>
         <td>Epoch 10</td>
@@ -405,24 +394,24 @@ Could be seen at "assets/images/single_class_all_images/image_list.txt".
         <td><img src="assets/images/single_class_all_images/epoch_examples/image_at_epoch_50000_00000.png" alt=""></td>
     </tr>
 </table>
-</center>
 
 ### Loss
-<center>
 <table>
     <tr>
         <td>Generator Loss</td>
-        <td>Discriminator Loss</td>
     </tr>
     <tr>
         <td><img src="assets/images/single_class_all_images/loss_examples/Loss_Generator.png" alt=""></td>
+    </tr>
+    <tr>
+    	<td>Discriminator Loss</td>
+    </tr>
+    <tr>
         <td><img src="assets/images/single_class_all_images/loss_examples/Loss_Discriminator.png" alt=""></td>
     </tr>
 </table>
-</center>
 
 ### Accuracy
-<center>
 <table>
     <tr>
         <td>Discriminator on real images</td>
@@ -443,21 +432,17 @@ Could be seen at "assets/images/single_class_all_images/image_list.txt".
         <td><img src="assets/images/single_class_all_images/loss_examples/Accuracy_Combined Discriminator.png" alt=""></td>
     </tr>
 </table>
-</center>
 
 ## All class with ten images
-Explanation ...
+Training models on the all classes with ten images.
 
-```bash
-Number of epochs: 50.000
-Training duration: 17h 17m 50s
-```
+This model is trained on **50.000** epoch. Training last **TODO**.
 
 ### An Original images
-Could be seen at "assets/images/all_classes_ten_images/image_list.txt".
+Could be fount at:   
+assets/images/all_classes_ten_images/image_list.txt
 
 ### Examples through epochs
-<center>
 <table>
     <tr>
         <td>Epoch 10</td>
@@ -510,24 +495,24 @@ Could be seen at "assets/images/all_classes_ten_images/image_list.txt".
         <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_50000_00000.png" alt=""></td>
     </tr>
 </table>
-</center>
 
 ### Loss
-<center>
 <table>
     <tr>
         <td>Generator Loss</td>
-        <td>Discriminator Loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/all_classes_ten_images/loss_examples/Loss_Generator.png" alt=""></td>
-        <td><img src="assets/images/all_classes_ten_images/loss_examples/Loss_Discriminator.png" alt=""></td>
+        <td><img src="assets/images/single_class_all_images/loss_examples/Loss_Generator.png" alt=""></td>
+    </tr>
+    <tr>
+    	<td>Discriminator Loss</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_all_images/loss_examples/Loss_Discriminator.png" alt=""></td>
     </tr>
 </table>
-</center>
 
 ### Accuracy
-<center>
 <table>
     <tr>
         <td>Discriminator on real images</td>
@@ -548,4 +533,3 @@ Could be seen at "assets/images/all_classes_ten_images/image_list.txt".
         <td><img src="assets/images/all_classes_ten_images/loss_examples/Accuracy_Combined Discriminator.png" alt=""></td>
     </tr>
 </table>
-</center>
