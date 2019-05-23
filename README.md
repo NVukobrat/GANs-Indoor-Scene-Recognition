@@ -443,5 +443,107 @@ Could be seen at "assets/images/single_class_all_images/image_list.txt".
 </table>
 </center>
 
-### Notes
-- [Cool list of available datasets](https://github.com/awesomedata/awesome-public-datasets)
+## All class with ten images
+Explanation ...
+
+```bash
+Number of epochs: 50.000
+Training duration: 17h 17m 50s
+```
+
+### An Original images
+Could be seen at "assets/images/all_classes_ten_images/image_list.txt".
+
+### Examples through epochs
+<center>
+<table>
+    <tr>
+        <td>Epoch 10</td>
+        <td>Epoch 300</td>
+        <td>Epoch 500</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_00010_00000.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_00300_00000.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_00500_00000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 700</td>
+        <td>Epoch 900</td>
+        <td>Epoch 2000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_00700_00000.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_00900_00000.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_02000_00000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 5.000</td>
+        <td>Epoch 10.000</td>
+        <td>Epoch 15.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_05000_00000.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_10000_00000.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_15000_00000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 21.000</td>
+        <td>Epoch 26.000</td>
+        <td>Epoch 40.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_21000_00000.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_26000_00000.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_40000_00000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 46.000</td>
+        <td>Epoch 48.000</td>
+        <td>Epoch 50.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_46000_00000.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_48000_00000.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/epoch_examples/image_at_epoch_50000_00000.png" alt=""></td>
+    </tr>
+</table>
+</center>
+
+### Loss
+<center>
+<table>
+    <tr>
+        <td>Generator Loss</td>
+        <td>Discriminator Loss</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Loss_Generator.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Loss_Discriminator.png" alt=""></td>
+    </tr>
+</table>
+</center>
+
+### Accuracy
+<center>
+<table>
+    <tr>
+        <td>Discriminator on real images</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Accuracy_Real Discriminator.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Discriminator on fake images</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Accuracy_Fake Discriminator.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Discriminator combined mean loss</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Accuracy_Combined Discriminator.png" alt=""></td>
+    </tr>
+</table>
+</center>

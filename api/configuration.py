@@ -9,11 +9,11 @@ IMG_SHAPE = (224, 224)
 N_CHANNELS = 3
 
 # Dataset batch size
-BATCH_SIZE = 128
+BATCH_SIZE = 256
 
 # Last epoch during previous training (in case training
 # has continued from the checkpoint).
-LAST_EPOCH = 4600
+LAST_EPOCH = 0
 
 # How many epochs should train last.
 EPOCHS = 100000
