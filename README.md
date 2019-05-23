@@ -10,6 +10,7 @@ This model has intended to expand a currently available dataset of indoor scene 
 - **Memory:** Kingston HyperX Fury Red 16 GB (2 x 8 GB)
 
 ## Notes
+- For most of the cases, training last till 50.000 epoch. The only reason is the time needed in order to reach results. If there is enough time, future models will be trained on more epochs. By that, generator models will produce better results. 
 - Some examples don't have Accuracy metrics. The reason is later development and optimizations of these metrics for adequate usage. If there is enough time, they will be added in the future.
 - Training with a greater amount of samples from the dataset isn't possible with current hardware. The source code could be optimized, but it will still take too much time to train the model on all training samples until it converge.
 
@@ -21,7 +22,7 @@ This model is trained on **10.000** epoch. Training last **1h 45m 09s**.
 
 Bellow is the original image used for training of the models as well as generator image samples throughout the epochs.
 
-Examples show that the generator model over-fit fast and continued to do it throughout the epochs.
+Examples show that the generator model over-fit during the training process, but nevertheless, it also tries to generate a distinct image having other two image samples as a reference.
 
 ### An Original image
 <center>
@@ -76,25 +77,25 @@ Examples show that the generator model over-fit fast and continued to do it thro
 <table>
     <tr>
         <td>Generator Loss</td>
-        <td>Discriminator Loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_single_image/loss_examples/Screenshot from 2019-05-18 14-44-03.png"
-                 alt=""></td>
-        <td><img
-                src="assets/images/single_class_single_image/loss_examples/Screenshot%20from%202019-05-18%2014-44-16.png"
-                alt=""></td>
+        <td><img src="assets/images/single_class_single_image/loss_examples/Screenshot from 2019-05-18 14-44-03.png" alt=""></td>
+    </tr>
+    <tr>
+		<td>Discriminator Loss</td>
+    </tr>
+    <tr>
+		<td><img src="assets/images/single_class_single_image/loss_examples/Screenshot%20from%202019-05-18%2014-44-16.png" alt=""></td>
     </tr>
 </table>
 </center>
 
 ## Single class with three images
-Explanation ...
+In this case, the training process involves three images from a single class. Same as in the previous case, this model tends to over-fit. But there is a difference. Because of the randomness of the input seed matrix and more than one image samples during the training process, this model tries to pick an indoor scene pattern and construct a new unique image. 
 
-```bash
-Number of epochs: 50.000
-Training duration: 7h 29m 11s
-```
+Bellow are three original images used for training of the models as well as generator image samples throughout the epochs.
+
+This model is trained on **50.000** epoch. Training last **7h 29m 11s**.
 
 ### An Original images
 <center>
