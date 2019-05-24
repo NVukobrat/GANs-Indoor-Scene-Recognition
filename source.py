@@ -3,7 +3,7 @@ from api import model
 from api.configuration import DATASET_PATH, LAST_EPOCH, EPOCHS
 
 
-# TODO: Error — Resource exhausted — optimize training pipeline.
+
 def main():
     # Load dataset
     scene_dataset = dataset.load_normalized_dataset(DATASET_PATH)

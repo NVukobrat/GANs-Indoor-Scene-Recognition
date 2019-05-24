@@ -16,7 +16,7 @@ BATCH_SIZE = 256
 LAST_EPOCH = 0
 
 # How many epochs should train last.
-EPOCHS = 100000
+EPOCHS = 50000
 
 # Debug logging
 DEBUG_LOG = False

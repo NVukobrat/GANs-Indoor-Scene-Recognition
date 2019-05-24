@@ -443,7 +443,7 @@ Could be fount at:
 ## All class with ten images
 Training models on the all classes with ten images.
 
-This model is trained on **50.000** epoch. Training last **TODO**.
+This model is trained on **50.000** epoch. Training last **50h 26m 01s**.
 
 ### An Original images
 Could be fount at:   
