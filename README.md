@@ -23,7 +23,7 @@ The [dataset](http://groups.csail.mit.edu/vision/LabelMe/NewImages/indoorCVPR_09
 ## Single class with single image
 In this case, the training process involves just a single image from a single class. While having a single sample from the whole dataset has great performance (in training time needed to converge in order to get optimal results), it tends to over-fit the generator model. From the perspective of the generator model, this means that it will produce the same image no matter the given input to the mode (this image will be almost the same as the image from training process).
 
-This model is trained on **10.000** epoch. Training last **1h 45m 09s**.
+This model is trained on **100.000** epoch. Training last **3h 30m 49s**.
 
 Bellow is the original image used for training of the models as well as generator image samples throughout the epochs.
 
@@ -71,6 +71,26 @@ Examples show that the generator model over-fit fast and continued to do it thro
         <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_5000_0000.png" alt=""></td>
         <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_10000_0000.png" alt=""></td>
     </tr>
+    <tr>
+        <td>Epoch 20.000</td>
+        <td>Epoch 30.000</td>
+        <td>Epoch 40.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_20000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_30000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_40000_0000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 60.000</td>
+        <td>Epoch 80.000</td>
+        <td>Epoch 100.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_60000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_80000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_100000_0000.png" alt=""></td>
+    </tr>
 </table>
 
 ### Loss
@@ -79,15 +99,38 @@ Examples show that the generator model over-fit fast and continued to do it thro
         <td>Generator Loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_single_image/loss_examples/Screenshot from 2019-05-18 14-44-03.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Loss_Generator.png" alt=""></td>
     </tr>
     <tr>
-		<td>Discriminator Loss</td>
+    	<td>Discriminator Loss</td>
     </tr>
     <tr>
-		<td><img src="assets/images/single_class_single_image/loss_examples/Screenshot%20from%202019-05-18%2014-44-16.png" alt=""></td>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Loss_Discriminator.png" alt=""></td>
     </tr>
 </table>
+
+### Accuracy
+<table>
+    <tr>
+        <td>Discriminator on real images</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Accuracy_Real Discriminator.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Discriminator on fake images</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Accuracy_Fake Discriminator.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Discriminator combined mean loss</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/all_classes_ten_images/loss_examples/Accuracy_Combined Discriminator.png" alt=""></td>
+    </tr>
+</table>
+
 
 ## Single class with three images
 In this case, the training process involves three images from a single class. Same as in the previous case, this model tends to over-fit. But there is a difference. Because of the randomness of the input seed matrix and more than one image samples during the training process, this model tries to pick an indoor scene pattern and construct a new unique image. 

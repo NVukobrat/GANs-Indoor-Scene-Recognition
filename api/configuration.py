@@ -16,7 +16,7 @@ BATCH_SIZE = 256
 LAST_EPOCH = 0
 
 # How many epochs should train last.
-EPOCHS = 50000
+EPOCHS = 100000
 
 # Debug logging
 DEBUG_LOG = False
@@ -32,7 +32,7 @@ DATASET_PATH = "dataset"
 MAX_CLASSES = -1
 
 # How many samples should be used from each class.
-MAX_SAMPLES_PER_CLASS = 10
+MAX_SAMPLES_PER_CLASS = -1
 
 #################################
 # ### Model related constants ###
