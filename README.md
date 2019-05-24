@@ -79,13 +79,13 @@ Examples show that the generator model over-fit fast and continued to do it thro
         <td>Generator Loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/all_classes_ten_images/loss_examples/Loss_Generator.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/loss_examples/Loss_Generator.png" alt=""></td>
     </tr>
     <tr>
     	<td>Discriminator Loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/all_classes_ten_images/loss_examples/Loss_Discriminator.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/loss_examples/Loss_Discriminator.png" alt=""></td>
     </tr>
 </table>
 
@@ -95,19 +95,19 @@ Examples show that the generator model over-fit fast and continued to do it thro
         <td>Discriminator on real images</td>
     </tr>
     <tr>
-        <td><img src="assets/images/all_classes_ten_images/loss_examples/Accuracy_Real Discriminator.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/loss_examples/Accuracy_Real Discriminator.png" alt=""></td>
     </tr>
     <tr>
         <td>Discriminator on fake images</td>
     </tr>
     <tr>
-        <td><img src="assets/images/all_classes_ten_images/loss_examples/Accuracy_Fake Discriminator.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/loss_examples/Accuracy_Fake Discriminator.png" alt=""></td>
     </tr>
     <tr>
         <td>Discriminator combined mean loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/all_classes_ten_images/loss_examples/Accuracy_Combined Discriminator.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/loss_examples/Accuracy_Combined Discriminator.png" alt=""></td>
     </tr>
 </table>
 
