@@ -77,9 +77,9 @@ Examples show that the generator model over-fit fast and continued to do it thro
         <td>Epoch 40.000</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_20000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_30000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_40000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_20000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_30000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_40000_00000.png" alt=""></td>
     </tr>
     <tr>
         <td>Epoch 60.000</td>
@@ -87,9 +87,9 @@ Examples show that the generator model over-fit fast and continued to do it thro
         <td>Epoch 100.000</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_60000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_80000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_100000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_60000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_80000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_100000_00000.png" alt=""></td>
     </tr>
 </table>
 
