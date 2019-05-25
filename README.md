@@ -5,11 +5,12 @@ This model has intended to expand a currently available dataset of indoor scene 
 
 Bellow are specified OS and Hardware elements used during this project R&D, explanation of the used dataset and additional notes to answer FAQ. Besides this, most of the documentation consists of cases in which models were trained. Those cases consist of conclusions, image lists used during training, generator samples on arbitrarily chosen epochs, and models loss and accuracy during epochs. These cases are intended to give more intuition on how GANs tries to solve the given problem.
 
-## OS and Hardware 
+## Environment
 - **OS:** Ubuntu 19.04
 - **Processor:** Intel Core i7-4770 CPU @ 3.40GHz × 8
 - **Graphics:** GeForce GTX 1080 Ti/PCIe/SSE2
 - **Memory:** Kingston HyperX Fury Red 16 GB (2 x 8 GB)
+- **Language:** Python 3.5.2 with TensorFlow 2.0 (Dockerized version)
 
 ## Notes
 - For most of the cases, training last till 50.000 epoch. The only reason is the time needed in order to reach results. If there is enough time, future models will be trained on more epochs. By that, generator models will produce better results. 
