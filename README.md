@@ -136,7 +136,7 @@ In this case, the training process involves three images from a single class. Sa
 
 Bellow are three original images used for training of the models as well as generator image samples throughout the epochs.
 
-This model is trained on **50.000** epoch. Training last **7h 29m 11s**.
+This model is trained on **100.000** epoch. Training last **3h 57m 55s**.
 
 Examples show that the generator model over-fit during the training process, but nevertheless, it also tries to generate a distinct image having other two image samples as a reference.
 
@@ -201,6 +201,16 @@ Examples show that the generator model over-fit during the training process, but
         <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_48000_00000.png" alt=""></td>
         <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_50000_00000.png" alt=""></td>
     </tr>
+    <tr>
+        <td>Epoch 70.000</td>
+        <td>Epoch 90.000</td>
+        <td>Epoch 100.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_70000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_90000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/epoch_examples/image_at_epoch_100000_00000.png" alt=""></td>
+    </tr>
 </table>
 
 ### Loss
@@ -209,15 +219,38 @@ Examples show that the generator model over-fit during the training process, but
         <td>Generator Loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_three_images/loss_examples/generator_loss.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/loss_examples/Loss_Generator.png" alt=""></td>
     </tr>
     <tr>
     	<td>Discriminator Loss</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_three_images/loss_examples/discriminator_loss.png" alt=""></td>
+        <td><img src="assets/images/single_class_three_images/loss_examples/Loss_Discriminator.png" alt=""></td>
     </tr>
 </table>
+
+### Accuracy
+<table>
+    <tr>
+        <td>Discriminator on real images</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_three_images/loss_examples/Accuracy_Real Discriminator.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Discriminator on fake images</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_three_images/loss_examples/Accuracy_Fake Discriminator.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Discriminator combined mean loss</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_three_images/loss_examples/Accuracy_Combined Discriminator.png" alt=""></td>
+    </tr>
+</table>
+
 
 ## Single class with ten images
 Training models on the single class with ten images. In this, and rest of the bellow cases when more images are introduced, models aren't likely to over-fit, but, they struggle to find a pattern between given image samples. 
