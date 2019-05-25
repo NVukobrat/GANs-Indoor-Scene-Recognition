@@ -23,7 +23,7 @@ The [dataset](http://groups.csail.mit.edu/vision/LabelMe/NewImages/indoorCVPR_09
 ## Single class with single image
 In this case, the training process involves just a single image from a single class. While having a single sample from the whole dataset has great performance (in training time needed to converge in order to get optimal results), it tends to over-fit the generator model. From the perspective of the generator model, this means that it will produce the same image no matter the given input to the mode (this image will be almost the same as the image from training process).
 
-This model is trained on **10.000** epoch. Training last **1h 45m 09s**.
+This model is trained on **50.000** epoch. Training last **1h 45m 09s**.
 
 Bellow is the original image used for training of the models as well as generator image samples throughout the epochs.
 
