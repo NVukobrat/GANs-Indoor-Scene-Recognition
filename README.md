@@ -39,7 +39,6 @@ Examples show that the generator model over-fit fast and continued to do it thro
     </tr>
 </table>
 
-### Examples through epochs
 <table>
     <tr>
         <td>Epoch 10</td>
@@ -47,29 +46,49 @@ Examples show that the generator model over-fit fast and continued to do it thro
         <td>Epoch 500</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_0010_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_0300_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_0500_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_00010_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_00300_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_00500_00000.png" alt=""></td>
     </tr>
     <tr>
         <td>Epoch 700</td>
         <td>Epoch 900</td>
-        <td>Epoch 1500</td>
+        <td>Epoch 2000</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_0700_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_0900_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_1500_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_00700_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_00900_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_02000_00000.png" alt=""></td>
     </tr>
     <tr>
-        <td>Epoch 3.000</td>
         <td>Epoch 5.000</td>
         <td>Epoch 10.000</td>
+        <td>Epoch 15.000</td>
     </tr>
     <tr>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_3000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_5000_0000.png" alt=""></td>
-        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_10000_0000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_05000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_10000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_15000_00000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 21.000</td>
+        <td>Epoch 26.000</td>
+        <td>Epoch 40.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_21000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_26000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_40000_00000.png" alt=""></td>
+    </tr>
+    <tr>
+        <td>Epoch 46.000</td>
+        <td>Epoch 48.000</td>
+        <td>Epoch 50.000</td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_46000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_48000_00000.png" alt=""></td>
+        <td><img src="assets/images/single_class_single_image/epoch_examples/image_at_epoch_50000_00000.png" alt=""></td>
     </tr>
 </table>
 
